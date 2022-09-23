@@ -35,7 +35,7 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
     '@nuxtjs/yandex-metrika',

@@ -1,24 +1,15 @@
 <template>
-  <div>Главная страница</div>
+  <navbar/>
 </template>
 
 <script>
-  export default {
-    async fetch() {
-    },
-    head() {
-      return {
-        title: "Главная",
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: 'Описание главной страницы',
-        }]
-      };
-    }
-  };
+
 </script>
 
-<style lang="sass">
-  @import '@/assets/sass/home.sass'
+<style lang="css">
+  @import url('https://rsms.me/inter/inter.css');
+  * { font-family: 'Inter', sans-serif; }
+  @supports (font-variation-settings: normal) {
+  * { font-family: 'Inter var', sans-serif; }
+}
 </style>

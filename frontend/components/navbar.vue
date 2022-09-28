@@ -11,7 +11,7 @@
         <b-form-input class="search-form" placeholder="Поиск"></b-form-input>
       </b-nav-form>
 
-      <button class="publish-button">Опубликовать статью</button>
+      <router-link to="/publish/" class="publish-button">Опубликовать статью</router-link>
     </b-navbar>
   </div>
 </template>
@@ -31,8 +31,14 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
     margin-right: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
   }
-
+  .publish-button:hover {
+  	text-decoration: none;
+	color: #F3F6FF;
+  }
   .logo {
     margin-left: 75px;
   }

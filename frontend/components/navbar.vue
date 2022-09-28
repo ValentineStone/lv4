@@ -2,9 +2,9 @@
   <div>
     <b-navbar class="nav-bar">
       <div class="logo">
-        <a href="#">
+        <router-link to="/">
           <img class="logo-img" src="logo.png" alt="Levach">
-        </a>
+        </router-link>
       </div>
 
       <b-nav-form class="search-block">
@@ -31,9 +31,9 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
     margin-right: 25px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
   }
   .publish-button:hover {
   	text-decoration: none;

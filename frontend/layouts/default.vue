@@ -5,6 +5,7 @@
       <div class="row">
         <div class="col-lg-3">
           <left-navigation></left-navigation>
+          <lower-navigation></lower-navigation>
         </div>
         <div class="col-lg-8">
           <main>

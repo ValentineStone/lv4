@@ -1,1 +1,43 @@
 // Core styles
+body
+  font-family: 'Inter', sans-serif
+.container.max
+  max-width: 1800px
+  margin-top: 24px
+  margin-bottom: 24px
+// Sidebar
+.navigate_parent
+  & li
+    margin: 12px 0 0 0
+    list-style: none
+    & a
+      font-style: normal
+      font-weight: 700
+      font-size: 20px
+      line-height: 24px
+      color: #000
+      transition-duration: 0.2s
+      &.nuxt-link-active
+        color: #A6A6A7
+      &:hover
+        color: #54A9F8
+        text-decoration: none
+    & .navigate_child
+      margin: 0 0 0 48px
+      & li
+        & a
+          font-weight: 500
+          font-size: 16px
+          line-height: 19px
+          &.nuxt-link-active
+            color: #54A9F8
+        &>a.navigate_list
+          display: flex
+          align-items: center
+          &::after
+            content: '▶'
+            font-size: 10px
+            margin: 0 0 0 8px
+        &>a.navigate_list.nuxt-link-active
+          &::after
+            content: '▼'

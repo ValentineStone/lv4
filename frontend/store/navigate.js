@@ -2,50 +2,64 @@ export const state = () => ({
   structure: []
 })
 export const mutations = {
-  setNavigate (state) {
-    state.showModalPayment = !state.showModalPayment;
+  setNavigate (state, pay) {
+    state.structure = pay;
   }
 }
 export const actions = {
   // Получение левой панели навигации с сервера
-  async getNavigate (state, commit) {
-    // const res = await this.$axios.$post('/main/get_nav/');
+  async getNavigate ({commit}) {
+    // const res = await this.$axios.$post('https://api.nuxtjs.dev/posts');
     const res = {
       error: false,
       nav: [
         {
           name: 'Статьи редакции',
-          url: '/red/',
+          url: '/articles/from_editors/',
           auth: false,
           rule: '',
           child: [
             {
               name: 'Категория',
-              url: '/red/cat/',
+              url: '/articles/from_editors/cat/',
               auth: true,
               rule: '',
               child: [
                 {
                   name: 'Категория категории',
-                  url: '/red/cat/cat/',
+                  url: '/articles/from_editors/cat2/cat2-1/',
+                  auth: false,
+                  rule: '',
+                  child: []
+                },
+                {
+                  name: 'Очень длинное название катогрии категории',
+                  url: '/articles/from_editors/cat2/cat2-2/',
                   auth: false,
                   rule: '',
                   child: []
                 },
               ]
-            }
+            },
+            {
+              name: 'Категория2',
+              url: '/articles/from_editors/cat2/',
+              auth: true,
+              rule: '',
+              child: []
+            },
           ]
         },
         {
           name: 'Статьи одобренные редакцией',
-            url: '/red2/',
+          url: '/articles/approved/',
           auth: false,
           rule: '',
           child: []
         },
         {
           name: 'Песочница',
-            url: '/red2/',
+          url: '/articles/from-readers/',
           auth: false,
           rule: '',
           child: []
@@ -54,9 +68,9 @@ export const actions = {
     }
     try {
       if (res.error) throw new Error(res.error.message);
-      commit('setNavigate', res.nav);
+      await commit('setNavigate', res.nav);
     } catch (error) {
-      commit('core/addModalInfo', {title: 'Ошибка', text: error.message},{root:true})
+      // commit('core/addModalInfo', {title: 'Ошибка', text: error.message},{root:true})
     }
   }
 }

@@ -1,9 +1,15 @@
 <template>
-  <navbar/>
+  <section>
+    Рабочая область
+  </section>
 </template>
 
 <script>
-
+  export default {
+    async fetch({store}) {
+      await store.dispatch('navigate/getNavigate');
+    },
+  }
 </script>
 
 <style lang="css">

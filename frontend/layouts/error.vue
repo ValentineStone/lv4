@@ -1,22 +1,10 @@
 <template>
-  <section>
-    Error 404
-  </section>
+  <div class="shell">
+            Error 404
+  </div>
 </template>
 
-<script>
-  export default {
-    head() {
-      return {
-        title: 'Ошибка 404',
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: 'Раздел не найден',
-        }]
-      };
-    },
-    layout: 'clear'
-  }
-</script>
-
+<style lang="sass">
+  @import '@/assets/sass/reset.sass'
+  @import '@/assets/sass/master.sass'
+</style>

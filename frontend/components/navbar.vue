@@ -37,7 +37,7 @@
   }
   .publish-button:hover {
   	text-decoration: none;
-	color: #F3F6FF;
+	  color: #F3F6FF;
   }
   .logo {
     margin-left: 75px;

@@ -1,0 +1,65 @@
+// Layout
+.bg-dark
+  background: #181818 !important
+.admin_shell
+  width: 100%
+  min-height: 100vh
+  background: #343a40
+  color: #FFFFFF
+  & .navbar-brand
+    font-size: 15px
+    letter-spacing: 1px
+    text-transform: uppercase
+  & .btn-navigate
+    color: #FFFFFF
+    background-color: #181818 !important
+    border-color: #343a40 !important
+  & .btn
+    text-transform: uppercase
+    font-size: 11px
+    letter-spacing: 1px
+  & .btn-info
+    color: #fff
+    background-color: #117a8b
+    border-color: #117a8b
+  & .btn-warning
+    color: #fff
+    background-color: #0b525e
+    border-color: #0b525e
+  & .btn-danger
+    color: #fff
+    background-color: #b82d17
+    border-color: #b82d17
+  & main
+    height: calc(100vh - 49px)
+    overflow: auto
+  & .navigate_list
+      height: calc(100vh - 71px)
+      grid-area: shell_nav
+      background: #343a40
+      z-index: 100
+      position: relative
+      border-right: 1px solid gray
+      & .category
+        & p
+          padding: 12px
+          font-size: 14px
+          letter-spacing: 1px
+          text-transform: uppercase
+          background: #181818
+          color: #FFFFFF
+        & .link
+          & a
+            font-size: 14px
+            padding: 12px 12px 12px 24px
+            display: block
+            color: #FFFFFF
+            text-transform: uppercase
+            &.nuxt-link-exact-active
+              color: #fff
+              padding: 12px 12px 12px 20px
+              border-left: 4px solid #fff
+              background: #181818
+            &:hover
+              text-decoration: none
+

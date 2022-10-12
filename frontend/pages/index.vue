@@ -1,6 +1,7 @@
 <template>
   <section>
-    Рабочая область
+    <event
+    />
   </section>
 </template>
 

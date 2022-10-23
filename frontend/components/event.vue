@@ -1,17 +1,51 @@
 <template>
-    <div class="event">
-        <h2 class="title">В смартфонах Apple появится поддержка спутниковой связи</h2>
-        <img class="image" src="example.png" alt="Example">
-        <p>В конце августа несколько известных аналитиков раскрыли новую функцию iPhone 14 — поддержку спутниковой связи.</p>
-        <router-link to="/" class="detail-btn">Читать далее...</router-link>
-        <div class="statistic">
-            <div class="views"><img src="views.png" alt="Views"> 0</div>
-            <div class="comments"><img src="comments.png" alt="Comments"> 0</div>
-            <div class="like"><img src="like.png" alt="Like"> 0</div>
-            <div class="dislike"><img src="dislike.png" alt="Dislike"> 0</div>
+    <div>
+        <div v-for="event in events" :key="event.id" class="event">
+            <h2 class="title">{{event.title}}</h2>
+            <img class="image" :src=event.image alt="Example">
+            <p>{{event.text}}</p>
+            <router-link to="/" class="detail-btn">Читать далее...</router-link>
+            <div class="statistic">
+            <div class="views"><img src="views.png" alt="Views"> {{event.views}}</div>
+            <div class="comments"><img src="comments.png" alt="Comments"> {{event.comments}}</div>
+            <div class="like"><img src="like.png" alt="Like"> {{event.like}}</div>
+            <div class="dislike"><img src="dislike.png" alt="Dislike"> {{event.dislike}}</div>
+            </div>
         </div>
     </div>
 </template>
+
+
+<script>
+export default {
+    data () {
+        return {
+            events: [
+                {
+                    id: 1,
+                    title: 'В смартфонах Apple появится поддержка спутниковой связи',
+                    image: 'example.png',
+                    text: 'В конце августа несколько известных аналитиков раскрыли новую функцию iPhone 14 — поддержку спутниковой связи.',
+                    views: 54,
+                    comments: 12,
+                    like: 38,
+                    dislike: 12
+                },
+                {
+                    id: 2,
+                    title: 'Тайны Вселенной. Снимки далеких экзопланет, галактик и звездных скоплений: что покажет самая крупная орбитальная станция?',
+                    image: 'example2.png',
+                    text: 'Долгожданные снимки далеких экзопланет, галактик и звездных скоплений, полученные на космический телескоп НАСА «Джеймс Уэбб».',
+                    views: 54,
+                    comments: 13,
+                    like: 38,
+                    dislike: 20
+                },
+            ]
+        }
+    }
+}
+</script>
 
 <style lang="css">
     .event {
@@ -20,6 +54,7 @@
         background: #fff;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
         border-radius: 15px;
+        margin-top: 15px;
     }
 
     .title {

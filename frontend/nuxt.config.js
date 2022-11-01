@@ -23,8 +23,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/vue-croppie.client.js',
-	'@/plugins/vue2-editor'
+    '@/plugins/vue-croppie.client.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,6 +40,7 @@ export default {
     '@nuxtjs/sitemap',
     '@nuxtjs/yandex-metrika',
     'bootstrap-vue/nuxt',
+    'vue2-editor/nuxt'
   ],
   auth: {
     strategies: {

@@ -2,16 +2,17 @@
     <form class="submission-form" action="#">
         <input class="title" type="text" placeholder="Введите заголовок...">
         <textarea class="text" placeholder="Введите текст статьи..."></textarea>
-        <div class="tag-forms-add-files">
-            <input class="tags" type="text" placeholder="Добавьте хэштеги">
-            <input type="file" id="upload">
-            <label class="upload-label" for="upload"><img class="upload-button-img" src="upload.png" alt="Upload"></label>
-            <input type="file" id="upload-img">
-            <label class="upload-label-img" for="upload-img"><img class="upload-button-img" src="upload-img.png" alt="Upload"></label>
-        </div>
+		<client-only>
+			<VueEditor/>
+		</client-only>	
         <button class="publish-btn" type="submit">Опубликовать</button>
     </form>
 </template>
+
+<script>
+
+
+</script>
 
 <style lang="css">
     .submission-form {

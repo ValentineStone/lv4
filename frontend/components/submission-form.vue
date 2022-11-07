@@ -1,11 +1,15 @@
 <template>
     <form class="submission-form" action="#">
         <input class="title" type="text" placeholder="Введите заголовок...">
-        <textarea class="text" placeholder="Введите текст статьи..."></textarea>
-		<client-only>
-			<VueEditor/>
-		</client-only>	
-        <button class="publish-btn" type="submit">Опубликовать</button>
+		<div class="text">
+			<client-only>
+				<VueEditor/>
+			</client-only>
+		</div>
+		<div class="tag-forms-add-files">
+			<input class="tags" type="text" placeholder="Введите теги...">	
+		</div>
+		<button class="publish-btn" type="submit">Опубликовать</button>
     </form>
 </template>
 
@@ -16,8 +20,8 @@
 
 <style lang="css">
     .submission-form {
-        width: 950px;
-        height: 750px;
+        width: auto;
+        height: auto;
         background: #FFFFFF;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
         border-radius: 15px;
@@ -25,7 +29,7 @@
     }
 
     .title {
-        width: 890px;
+        width: 820px;
         border-style: none;
         font-weight: 700;
         font-size: 32px;
@@ -36,17 +40,8 @@
     }
 
     .text {
-        width: 890px;
-        height: 580px;
-        border-style: none;
-        font-weight: 500;
-        font-size: 24px;
         display: block;
-        align-items: center;
-        line-height: 40px;
-        margin-left: 30px;
         margin-top: 40px;
-        resize: none;
     }
 
     .tags {
@@ -57,6 +52,7 @@
         align-items: center;
         line-height: 30px;
         margin-left: 30px;
+		margin-top: 40px;
     }
 
     .tag-forms-add-files {
@@ -90,6 +86,6 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 100px;
+        margin-top: 90px;
     }
 </style>

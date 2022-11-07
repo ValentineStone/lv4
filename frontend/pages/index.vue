@@ -1,7 +1,6 @@
 <template>
   <section>
-    <event
-    />
+    <submission-form/>
   </section>
 </template>
 

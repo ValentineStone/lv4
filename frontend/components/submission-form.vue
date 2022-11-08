@@ -7,7 +7,11 @@
 			</client-only>
 		</div>
 		<div class="tag-forms-add-files">
-			<input class="tags" type="text" placeholder="Введите теги...">	
+			<input class="tags" type="text" placeholder="Введите теги...">
+			<input type="file" id="upload">
+            <label class="upload-label" for="upload"><img class="upload-button-img" src="upload.png" alt="Upload"></label>
+            <input type="file" id="upload-img">
+            <label class="upload-label-img" for="upload-img"><img class="upload-button-img" src="upload-img.png" alt="Upload"></label>
 		</div>
 		<button class="publish-btn" type="submit">Опубликовать</button>
     </form>
@@ -64,6 +68,7 @@
         width: 31px;
         height: 31px;
         cursor: pointer;
+		padding-top: 40px;
     }
 
     #upload {

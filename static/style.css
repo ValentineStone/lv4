@@ -1,0 +1,193 @@
+/* ============================= Generic reset ============================== */
+
+/* Box sizing rules */
+* { box-sizing: border-box }
+
+/* Remove default padding */
+ul, ol { padding: 0 }
+
+/* Remove default margin */
+body, h1, h2, h3, h4, p, ul, ol, li, figure,
+figcaption, blockquote, dl, dd { margin: 0 }
+
+/* Make body (and app) like in html 4 */
+body, html, #app { min-height: 100% }
+
+/* Make images easier to work with */
+img { max-width: 100% }
+
+/* Why does canvas even have focus?.. */
+canvas:focus { outline: none }
+
+/* Inherit fonts for inputs and buttons */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+  min-width: 0;
+}
+
+/* Lighten up the default tabindex outline */
+*:focus { outline-color: rgba(0,0,0,0.2) }
+
+/* Remove animations and transitions for people who prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================= Custom styles ============================== */
+
+html, body {
+  background: #f1f4ff;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 1.8em;
+}
+
+input, button, textarea, select {
+  appearance: none;
+  border: none;
+  outline: none;
+}
+
+body > nav {
+  background: #54a9f8;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+}
+
+body > nav > * {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+body > nav > :not(:first-child):not(:last-child) { justify-content: center; }
+body > nav > :last-child { justify-content: end; }
+
+body > nav > * > * {
+  margin: 0 0.5rem;
+}
+
+body > aside {
+  margin-left: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  position: fixed;
+  max-width: calc((100% - 946px) / 2 - 3rem);
+  bottom: 0;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+body > aside > ol {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+body > aside > ol > li > details {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+body > aside ol {
+  list-style: none;
+  margin-left: 3rem;
+  line-height: 2.5rem;
+}
+
+
+
+body > aside > ol.links {
+  font-weight: 500;
+  font-size: 16px;
+  color: #2f88f0;
+}
+
+
+summary {
+  list-style: none;
+  color: #2f88f0;
+}
+details > summary::after {
+  content: '▸';
+  font-size: 2em;
+  display: inline-block;
+  position: absolute;
+}
+details[open] > summary::after {
+  content: '▾';
+}
+
+input {
+  border-radius: 1000rem;
+  background: white;
+  padding: 0.2em 1em;
+  outline: none;
+}
+
+button {
+  border-radius: 1000rem;
+  background: #A8D4FC;
+  color: white;
+  padding: 0.2em 1em;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+button.basic {
+  background: unset;
+  color: unset;
+  padding: 0.2em;
+  box-shadow: none;
+}
+
+figure {
+  background: #fff5;
+  border-radius: 1rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+figure > figcaption, figure > section {
+  font-size: 24px;
+  padding: 0.8em 1.5em;
+}
+
+figure > img {
+  display: block;
+}
+
+figure > button {
+  font-size: 24px;
+  display: block;
+  margin: 0 auto;
+}
+
+main {
+  max-width: 946px;
+  margin: 0 auto;
+  padding-top: 1.3rem;
+}
+
+
+main > * {
+  margin-bottom: 2rem;
+}
+
+.flex {
+  display: flex;
+}
+.flex > * {
+  flex: 1;
+}
+
+.disabled {
+  color: #a6a6a7;
+}

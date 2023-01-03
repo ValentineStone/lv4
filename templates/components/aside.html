@@ -1,0 +1,38 @@
+<aside>
+  <ol>
+    <li>Статьи редакции</li>
+    <li class="disabled">Статьи одобренные редакцией</li>
+    <li>
+      <details open>
+        <summary>Все публикации</summary>
+        <ol>
+          {% for category in categories %}
+          {% if not category.sub %}
+          <li>{{ category.name }}</li>
+          {% else %}
+          <li>
+            <details>
+              <summary>{{ category.name }}</summary>
+              <ol>
+                {% for sub in category.sub %}
+                <li>{{ sub.name }}</li>
+                {% endfor %}
+              </ol>
+            </details>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ol>
+      </details>
+    </li>
+    <li>Песочница</li>
+  </ol>
+  <div style="flex-grow:1"></div>
+  <ol class="links">
+    <li>О проекте</li>
+    <li>Справки</li>
+    <li>Правила</li>
+    <li>Помощь проекту</li>
+    <li>Администрация</li>
+  </ol>
+</aside>

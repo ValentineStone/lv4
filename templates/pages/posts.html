@@ -1,0 +1,14 @@
+{% from 'components/post-preview.html' import PostPreview %}
+
+{% include 'head.html' %}
+
+{% include 'components/navigation.html' %}
+{% include 'components/aside.html' %}
+
+<main>
+  {% for post in posts %}
+  {{ PostPreview(**post) }}
+  {% endfor %}
+</main>
+
+{% include 'foot.html' %}

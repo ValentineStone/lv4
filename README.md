@@ -25,4 +25,5 @@ Use the latest version of Python. Flask supports Python 3.7 and newer
 
 ## References
 
+Design reference in Figma - https://www.figma.com/file/9B9S8C2aSLCABUiTP9t5yl/Untitled?node-id=0%3A1
 Flask - https://flask.palletsprojects.com/en/2.2.x/

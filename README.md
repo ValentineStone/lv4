@@ -1,6 +1,7 @@
 <p align="center">
 <img src="static/logo-black.png">
 </p>
+
 # Levach
 
 This is a very early version of the website, everything is prone to chnage.

@@ -8,18 +8,22 @@ MONGO_PORT = int(environ.get('MONGO_PORT', 27017))
 MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
 
 
+class Fake:
+    find():
+        return []
+
 app = Flask(__name__)
 
 client = None
-posts = []
-categories = []
+posts = Fake()
+categories = Fake()
 
 try:
     client = MongoClient(MONGO_ADDR, MONGO_PORT, serverSelectionTimeoutMS=1)
     client.server_info()
     db = client[MONGO_DBNAME]
-    posts = db.posts.find()
-    categories = db.categories.find()
+    posts = db.posts
+    categories = db.categories
 except:
     print('No connection')
 
@@ -27,6 +31,6 @@ except:
 def home():
     return render_template(
         'pages/posts.html',
-        posts=posts,
-        categories=categories
+        posts=posts.find(),
+        categories=categories.find()
     )

@@ -9,18 +9,24 @@ MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
 
 
 app = Flask(__name__)
-client = MongoClient(MONGO_ADDR, MONGO_PORT)
 
+client = None
+posts = []
+categories = []
 
-db = client[MONGO_DBNAME]
-posts = db.posts
-categories = db.categories
-
+try:
+    client = MongoClient(MONGO_ADDR, MONGO_PORT, serverSelectionTimeoutMS=1)
+    client.server_info()
+    db = client[MONGO_DBNAME]
+    posts = db.posts.find()
+    categories = db.categories.find()
+except:
+    print('No connection')
 
 @app.route("/")
 def home():
     return render_template(
         'pages/posts.html',
-        posts=posts.find(),
-        categories=categories.find()
+        posts=posts,
+        categories=categories
     )

@@ -24,9 +24,25 @@ Use the latest version of Python. Flask supports Python 3.7 and newer
 6. `pip install Flask pymongo python-dotenv`
 7. copy `.env.example` into `.env` and change it according to your setup
 
+To setup the `systemd` service:
+
+1. Open `lv4.service` and modify it according to your username and system path
+2. `sudo ln lv4.service /etc/systemd/system/lv4.service`
+3. `sudo systemctl enable lv4`
+
 ## Run
 
-1. `flask --debug run`
+- `./service.sh`
+
+or
+
+- `flask --debug run` only when in venv already
+
+or
+
+- `sudo systemctl start lv4`
+- `journalctl -f -u lv4` to view the libe log
+- `sudo systemctl stop lv4` to stop the service
 
 ## References
 

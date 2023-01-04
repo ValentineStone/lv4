@@ -20,7 +20,7 @@ Use the latest version of Python. Flask supports Python 3.7 and newer
 4. - win `py -3 -m venv venv`
    - linux `python3 -m venv venv`
 5. - win `venv\Scripts\activate.bat`
-   - linux `venv/bin/activate`
+   - linux `source venv/bin/activate`
 6. `pip install Flask pymongo python-dotenv`
 7. copy `.env.example` into `.env` and change it according to your setup
 

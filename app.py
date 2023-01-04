@@ -9,7 +9,7 @@ MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
 
 
 class Fake:
-    find():
+    def find():
         return []
 
 app = Flask(__name__)

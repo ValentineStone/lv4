@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template
-from flask import redirect, url_for
+from flask import redirect, url_for, abort
 from flask import request
 from werkzeug.wrappers import Request, Response, ResponseStream
 
@@ -86,8 +86,11 @@ def posts_get():
 
 @app.route('/post/<post_id>')
 def post_get(post_id):
+    post = posts.find_one({'_id' : ObjectId(post_id)})
+    if not post:
+        abort(404)
     return render_template(
         'pages/post.html',
-        post=posts.find_one({"_id" : ObjectId(post_id)}),
+        post=post,
         categories=categories.find()
     )

@@ -9,7 +9,7 @@ from werkzeug.wrappers import Request, Response, ResponseStream
 
 MONGO_ADDR = environ.get('MONGO_ADDR', 'localhost')
 MONGO_PORT = int(environ.get('MONGO_PORT', 27017))
-MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
+MONGO_DBNAME = environ.get('MONGO_DBNAME', 'levach')
 
 
 app = Flask(__name__)
@@ -34,13 +34,18 @@ class Fake:
         return []
 
 client = None
+app = Flask(__name__)
+
 posts = Fake()
 categories = Fake()
 
 try:
-    client = MongoClient(MONGO_ADDR, MONGO_PORT, serverSelectionTimeoutMS=1)
-    client.server_info()
-    db = client[MONGO_DBNAME]
+    client = MongoClient(host='test_mongodb',
+                         port=27017,
+                         username='root',
+                         password='pass',
+                         authSource="admin")
+    db = client["levach"]
     posts = db.posts
     categories = db.categories
 except:

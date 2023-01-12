@@ -1,3 +1,3 @@
-FROM python
-RUN pip install flask pymongo
+FROM python:3.11
+RUN pip install Flask pymongo python-dotenv
 EXPOSE 5000

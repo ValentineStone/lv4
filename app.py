@@ -5,10 +5,12 @@ from flask import Flask, render_template
 from flask import redirect, url_for
 
 
-MONGO_ADDR = environ.get('MONGO_ADDR', 'localhost')
+MONGO_HOST = environ.get('MONGO_HOST', 'localhost')
 MONGO_PORT = int(environ.get('MONGO_PORT', 27017))
-MONGO_DBNAME = environ.get('MONGO_DBNAME', 'levach')
-
+MONGO_USER = environ.get('MONGO_USER', 'user')
+MONGO_PASS = environ.get('MONGO_PASS', 'pass')
+MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
+MONGO_AUTH_SOURCE = environ.get('MONGO_AUTH_SOURCE', 'admin')
 
 class Fake:
     def find(self, *args):
@@ -20,18 +22,18 @@ posts = Fake()
 categories = Fake()
 
 try:
-    client = MongoClient(host='test_mongodb',
-                         port=27017,
-                         username='root',
-                         password='pass',
-                         authSource="admin")
-    db = client["levach"]
+    client = MongoClient(
+        host=MONGO_HOST,
+        port=MONGO_PORT,
+        username=MONGO_USER,
+        password=MONGO_PASS,
+        authSource=MONGO_AUTH_SOURCE
+    )
+    db = client[MONGO_DBNAME]
     posts = db.posts
     categories = db.categories
 except:
     print('No connection')
-
-print(posts)
 
 @app.route('/')
 def index():
@@ -51,6 +53,6 @@ def posts_get():
 def post_get(post_id):
     return render_template(
         'pages/posts.html',
-        posts=posts.find({"_id" : ObjectId(post_id)}),
+        posts=posts.find({'_id' : ObjectId(post_id)}),
         categories=categories.find()
     )

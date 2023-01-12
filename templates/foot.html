@@ -1,4 +1,17 @@
 
+<script>
+  var textareas = document.getElementsByTagName('textarea');
+  function onTextareaInput() {
+    this.style.height = 0;
+    this.style.height = (this.scrollHeight) + 'px';
+  }
+  for (var i = 0; i < textareas.length; i++) {
+    textareas[i].setAttribute('style', 'height:' + (textareas[i].scrollHeight) + 'px;overflow-y:hidden;');
+    textareas[i].addEventListener('input', onTextareaInput, false);
+    onTextareaInput.call(textareas[i]);
+  }
+</script>
+
 </body>
 
 </html>

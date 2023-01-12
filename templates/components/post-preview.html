@@ -1,5 +1,6 @@
+{% import 'components/social-buttons.html' as Social %}
 {% macro PostPreview(_id, title, photo, text, views, comments, likes, dislikes) %}
-<figure id="post-{{ _id }}">
+<figure id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
@@ -7,31 +8,21 @@
   <section>
     {{text}}
   </section>
-  <a class="button" href="/post/{{_id}}">Читать далее...</a>
-  <section class="flex">
-    <div>
-      <button class="basic">
-        <img style="margin-top:-7px" src="{{ url_for('static', filename='views.svg') }}">
-      </button>
-      <span>{{views}}</span>
-      <button class="basic">
-        <img style="margin-top:-7px" src="{{ url_for('static', filename='comment.svg') }}">
-      </button>
-      <span>{{comments}}</span>
-      <button class="basic">
-        <img style="margin-top:-7px" src="{{ url_for('static', filename='repost.svg') }}">
-      </button>
-    </div>
-    <div style="text-align: right;">
-      <button class="basic">
-        <img style="margin-top:-12px" src="{{ url_for('static', filename='like.svg') }}">
-      </button>
-      <span>{{likes}}</span>
-      <button class="basic">
-        <img style="margin-bottom:-9px" src="{{ url_for('static', filename='dislike.svg') }}">
-      </button>
-      <span>{{dislikes}}</span>
-    </div>
+  <section style="text-align: center;">
+    <a class="button" href="/post/{{_id}}">Читать далее...</a>
+  </section>
+  <section>
+    {{ Social.SocialButtons(
+      views=views,
+      viewsActive=[True,False]|random,
+      comments=comments,
+      commentsActive=[True,False]|random,
+      repostActive=[True,False]|random,
+      likes=likes,
+      likesActive=[True,False]|random,
+      dislikes=dislikes,
+      dislikesActive=[True,False]|random,
+    ) }}
   </section>
 </figure>
 {% endmacro %}

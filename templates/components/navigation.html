@@ -1,16 +1,17 @@
 <nav>
-  <div>
-    <a href="/"><img src="{{ url_for('static', filename='logo.png') }}"></a>
-  </div>
+  <a href="/"><img class="logo" src="{{ url_for('static', filename='logo.png') }}"></a>
   <div>
     <input placeholder="Поиск" class="main-search">
   </div>
   <div>
-    <button>
+    <a class="button mobile-hide">
       Опубликовать статью
-    </button>
-    <button style="padding: 0.2em;">
+    </a>
+    <button class="round mobile-hide">
       <span style="border-radius:2rem;margin:0 0.1em" class="fi fi-ru fis"></span>
+    </button>
+    <button class="mobile-show" onclick="let el = document.querySelector('aside'); el.classList.toggle('mobile-hide')">
+      Меню
     </button>
   </div>
 </nav>

@@ -1,0 +1,31 @@
+{% import 'components/social-buttons.html' as Social %}
+{% macro Comment() %}
+<div class="comment">
+  <div class="flex duo">
+    <div class="info flex">
+      <div>#{{kwargs['code']}}</div>
+      <div title="{{kwargs['date']}}" class="datetime">{{kwargs['date']}}</div>
+    </div>
+    {{ Social.LikesButtons(
+      likes=kwargs['likes'],
+      likesActive=kwargs['likesActive'],
+      dislikes=kwargs['dislikes'],
+      dislikesActive=kwargs['dislikesActive'],
+    ) }}
+  </div>
+  <div class="content">
+    {{kwargs['content']}}
+  </div>
+  <div class="actions flex">
+    <div>Ответить</div>
+    <div>Пожаловаться</div>
+  </div>
+  <div class="comments">
+    {% for reply in kwargs['replies'] %}
+    <div class="reply">
+      {{Comment(**reply)}}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}

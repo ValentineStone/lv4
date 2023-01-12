@@ -23,6 +23,7 @@ canvas:focus { outline: none }
 input, button, textarea, select {
   font: inherit;
   color: inherit;
+  background: inherit;
   min-width: 0;
 }
 
@@ -39,14 +40,10 @@ input, button, textarea, select {
   }
 }
 
-/* ============================= Custom styles ============================== */
 
-html, body {
-  background: #f1f4ff;
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  line-height: 1.8em;
-}
+
+/* ============================= Generic things ============================= */
+
 
 input, button, textarea, select {
   appearance: none;
@@ -54,61 +51,92 @@ input, button, textarea, select {
   outline: none;
 }
 
-body > nav {
+
+/* ============================= Custom styles ============================== */
+
+html, body {
+  background: #f1f4ff;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 1.8em;
+  font-size: 16px;
+}
+
+nav {
   background: #54a9f8;
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 1.5rem;
+  z-index: 2;
 }
 
-body > nav > * {
+nav > * {
   display: flex;
   align-items: center;
   flex: 1;
 }
 
-body > nav > :not(:first-child):not(:last-child) { justify-content: center; }
-body > nav > :last-child { justify-content: end; }
+nav > :not(:first-child):not(:last-child) { justify-content: center; }
+nav > :last-child { justify-content: end; }
 
-body > nav > * > * {
+.flex {
+  display: flex;
+}
+.flex > * {
+  align-items: center;
+}
+
+.flex.duo > :last-child {
+  margin-left: auto;
+}
+
+nav > * > * {
   margin: 0 0.5rem;
 }
 
-body > aside {
-  margin-left: 2rem;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+nav button, nav .button {
+  background: #A8D4FC;
+}
+
+aside {
+  background: #f1f4ff;
+  padding-left: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   position: fixed;
-  max-width: calc((100% - 946px) / 2 - 3rem);
+  width: 23%;
   bottom: 0;
   top: 100px;
   display: flex;
   flex-direction: column;
-}
-
-body > aside > ol {
-  font-weight: 700;
-  font-size: 20px;
-}
-
-body > aside > ol > li > details {
-  font-weight: 500;
-  font-size: 16px;
-}
-
-body > aside ol {
-  list-style: none;
-  margin-left: 3rem;
+  font-size: 1.25rem;
   line-height: 2.5rem;
+  overflow: auto;
+  z-index: 1;
 }
 
+aside > ol {
+  font-weight: 700;
+}
 
-
-body > aside > ol.links {
+aside > ol > li > details {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
+}
+
+aside ol {
+  list-style: none;
+}
+
+aside ol ol {
+  margin-left: 3rem;
+}
+
+aside > ol.links {
+  font-weight: 500;
+  font-size: 1rem;
   color: #2f88f0;
 }
 
@@ -136,50 +164,149 @@ input {
 
 button, .button {
   border-radius: 1000rem;
-  background: #A8D4FC;
+  background: #54A9F8;
   color: white;
   padding: 0.2em 1em;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.button {
   cursor: pointer;
+  display: inline-block;
+  width: max-content;
 }
 
 a.button {
   text-decoration: none;
 }
 
-button.basic {
+.social {
   background: unset;
   color: unset;
   padding: 0.2em;
   box-shadow: none;
 }
+.social.active {
+  color: #2F88F0;
+}
+.social:not(.active) {
+  filter: brightness(0);
+}
+
+button.round {
+  padding: 0.2em;
+}
 
 figure {
-  background: #fff5;
+  font-size: 1.5rem;
+  background: #ffffff;
   border-radius: 1rem;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
+  padding: 0.8em 0;
 }
 
 figure > figcaption, figure > section {
-  font-size: 24px;
-  padding: 0.8em 1.5em;
+  padding: 0 1.5em;
 }
 
-figure > img {
-  display: block;
+figure > img, figure > section {
+  margin-top: 0.8em;
 }
 
-figure > button, figure > .button {
-  text-decoration: none;
-  font-size: 24px;
-  display: block;
-  margin: 0 auto;
-  width: max-content;
-  cursor: pointer;
+figure > .write-comment {
+  background: #D9D9D9;
+  border-radius: 1em;
+
+  margin-left:    1.5em;
+  margin-right:   1.5em;
+
+  padding-left:   1.5em;
+  padding-right:  0.4em;
+  padding-top:    0.8em;
+  padding-bottom: 0.4em;
 }
+
+figure > .write-comment textarea {
+  width: 100%;
+  resize: none;
+  margin-right: 1.1em;
+  margin-bottom: 0.8em;
+}
+
+figure > .write-comment textarea::placeholder {
+  color: #898989;
+}
+
+figure > .write-comment button.post-comment {
+  font-size: 1.25rem;
+  background: #2F88F0;
+  box-shadow: none;
+}
+
+
+figure section.comments {
+  padding-left: 0;
+}
+figure section.comments .comment {
+  padding-left: 1.5em;
+  position: relative;
+}
+figure section.comments .comment .info {
+  overflow: hidden;
+}
+figure section.comments .comment .info > * {
+  margin-right: 1.5em;
+}
+figure section.comments .comment .datetime {
+  color: #797979;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+figure section.comments .comment .social {
+  flex-shrink: 0;
+}
+
+figure section.comments .comment .content {
+  margin-top: 0.8em;
+  font-size: 1.25rem;
+}
+
+figure section.comments .comment .actions {
+  margin-top: 0.8em;
+  margin-bottom: 2em;
+}
+
+figure section.comments .comment .actions > * {
+  margin-right: 1.5em;
+  font-size: 1.25rem;
+  color: #9E9E9E;
+}
+
+figure section.comments .comment .reply {
+  position: relative;
+  padding-left: 0.5em;
+}
+
+figure section.comments .comment .reply::before {
+  content: '';
+  width: 1.5em;
+  height: 1.6em;
+  top: -1em;
+  left: 0;
+  position: absolute;
+  border-bottom-left-radius: 1em;
+  border-bottom: 0.15em solid #9E9E9E;
+  border-left: 0.15em solid #9E9E9E;
+}
+
+figure section.comments .comment .reply:not(:last-child)::after {
+  content: '';
+  width: 1.5em;
+  top: 1em;
+  left: 0;
+  bottom: -1em;
+  position: absolute;
+  border-left: 0.15em solid #9E9E9E;
+}
+
 
 main {
   max-width: 946px;
@@ -192,13 +319,135 @@ main > * {
   margin-bottom: 2rem;
 }
 
-.flex {
-  display: flex;
-}
-.flex > * {
-  flex: 1;
-}
-
 .disabled {
   color: #a6a6a7;
+}
+
+.rainbow {
+  animation: rainbow-bg 10s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainbow-bg{
+  100%,0% { background: rgb(255,0,0) }
+  8%  { background: rgb(255,127,0) }
+  16% { background: rgb(255,255,0) }
+  25% { background: rgb(127,255,0) }
+  33% { background: rgb(0,255,0) }
+  41% { background: rgb(0,255,127) }
+  50% { background: rgb(0,255,255) }
+  58% { background: rgb(0,127,255) }
+  66% { background: rgb(0,0,255) }
+  75% { background: rgb(127,0,255) }
+  83% { background: rgb(255,0,255) }
+  91% { background: rgb(255,0,127) }
+}
+
+
+@media (max-width: 1800px) {
+  main {
+    max-width: 946px;
+  }
+  aside {
+    width: 20%;
+    padding-left: 4rem;
+  }
+}
+
+
+@media (max-width: 1600px) {
+  main {
+    max-width: 820px;
+  }
+  aside {
+    width: 20%;
+    padding-left: 3rem;
+  }
+}
+
+
+@media (max-width: 1400px) {
+  main {
+    max-width: 700px;
+  }
+  aside {
+    font-size: 1rem;
+    line-height: unset;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  aside ol ol {
+    margin-left: 2rem;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  main {
+    max-width: 590px;
+  }
+  aside {
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  aside ol ol {
+    margin-left: 1rem;
+  }
+  nav {
+    font-size: 1.25rem;
+  }
+  figure {
+    font-size: 1.25rem;
+  }
+  img.logo {
+    height: 5rem;
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+  main {
+    max-width: 500px;
+  }
+  nav {
+    font-size: 1rem;
+  }
+  figure {
+    font-size: 1rem;
+  }
+  img.logo {
+    height: 4rem;
+  }
+}
+
+
+@media (max-width: 850px) {
+  main {
+    padding: 0.5rem;
+  }
+  aside {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    top: 0;
+    padding-top: 4rem;
+  }
+  img.logo {
+    height: 3rem;
+  }
+  nav input {
+    width: 100%;
+  }
+}
+
+@media (min-width: 851px) {
+  .mobile-show { display: none }
+}
+
+@media (max-width: 850px) {
+  .mobile-hide { display: none }
 }

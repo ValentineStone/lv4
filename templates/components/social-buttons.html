@@ -1,0 +1,80 @@
+{% macro ViewsButton(count, active=False) %}
+<button class="social {{'active' if active }}">
+  <img style="width:1.6em;margin-top:-0.3em" src="{{ url_for('static', filename='views.svg') }}">
+  <span>{{count}}</span>
+</button>
+{% endmacro %}
+
+{% macro CommentsButton(count, active=False) %}
+<button class="social {{'active' if active }}">
+  <img style="width:1.6em;margin-top:-0.3em" src="{{ url_for('static', filename='comment.svg') }}">
+  <span>{{count}}</span>
+</button>
+{% endmacro %}
+
+{% macro RepostButton(active=False) %}
+<button class="social {{'active' if active }}">
+  <img style="width:1em;margin-top:-0.3em" src="{{ url_for('static', filename='repost.svg') }}">
+</button>
+{% endmacro %}
+
+{% macro LikesButton(count, active=False) %}
+<button class="social {{'active' if active }}">
+  <img style="width:1.24em;margin-top:-0.5em" src="{{ url_for('static', filename='like.svg') }}">
+  <span>{{count}}</span>
+</button>
+{% endmacro %}
+
+{% macro DislikesButton(count, active=False) %}
+<button class="social {{'active' if active }}">
+  <img style="width:1.24em;margin-bottom:-0.375em" src="{{ url_for('static', filename='dislike.svg') }}">
+  <span>{{count}}</span>
+</button>
+{% endmacro %}
+
+{% macro SocialButtons(
+  views,
+  viewsActive,
+  comments,
+  commentsActive,
+  repostActive,
+  likes,
+  likesActive,
+  dislikes,
+  dislikesActive
+) %}
+<div class="flex duo">
+  <div>
+    {{ ViewsButton(views, [True, False] | random) }}
+    {{ CommentsButton(comments, [True, False] | random) }}
+    {{ RepostButton([True, False] | random) }}
+  </div>
+  <div>
+    {{ LikesButton(likes, [True, False] | random) }}
+    {{ DislikesButton(dislikes, [True, False] | random) }}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro LikesButtons(
+  likes,
+  likesActive,
+  dislikes,
+  dislikesActive
+) %}
+<div class="flex">
+  {{ LikesButton(likes, [True, False] | random) }}
+  {{ DislikesButton(dislikes, [True, False] | random) }}
+</div>
+{% endmacro %}
+
+{% macro Liked(liked=None) %}
+<div class="social">
+  {% if liked == True %}
+  <img style="width:1.24em;margin-top:-0.5em" src="{{ url_for('static', filename='like.svg') }}">
+  {% elif liked == False %}
+  <img style="width:1.24em;margin-bottom:-0.375em" src="{{ url_for('static', filename='dislike.svg') }}">
+  {% else %}
+  {% endif %}
+</div>
+{% endmacro %}

@@ -1,0 +1,12 @@
+{% from 'components/post-full.html' import Post %}
+
+{% include 'head.html' %}
+
+{% include 'components/navigation.html' %}
+{% include 'components/aside.html' %}
+
+<main>
+  {{ Post(**post) }}
+</main>
+
+{% include 'foot.html' %}

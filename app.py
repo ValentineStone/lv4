@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template
 from flask import redirect, url_for
+from flask import request
+from werkzeug.wrappers import Request, Response, ResponseStream
 
 
 MONGO_ADDR = environ.get('MONGO_ADDR', 'localhost')
@@ -10,11 +12,26 @@ MONGO_PORT = int(environ.get('MONGO_PORT', 27017))
 MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
 
 
+app = Flask(__name__)
+
+
+class middleware():
+    def __init__(self, app):
+        self.app = app
+    def __call__(self, environ, start_response):
+        request = Request(environ)
+        # do middleware things
+        return self.app(environ, start_response)
+
+
+app.wsgi_app = middleware(app.wsgi_app)
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+
 class Fake:
     def find(self, *args):
         return []
-
-app = Flask(__name__)
 
 client = None
 posts = Fake()
@@ -29,7 +46,11 @@ try:
 except:
     print('No connection')
 
-print(posts)
+@app.template_filter()
+def debug(text):
+  print(text)
+  return ''
+
 
 @app.route('/')
 def index():
@@ -37,8 +58,6 @@ def index():
 
 @app.route('/posts')
 def posts_get():
-    print('=========================================================================')
-    print(posts)
     return render_template(
         'pages/posts.html',
         posts=posts.find(),
@@ -48,7 +67,7 @@ def posts_get():
 @app.route('/post/<post_id>')
 def post_get(post_id):
     return render_template(
-        'pages/posts.html',
-        posts=posts.find({"_id" : ObjectId(post_id)}),
+        'pages/post.html',
+        post=posts.find_one({"_id" : ObjectId(post_id)}),
         categories=categories.find()
     )

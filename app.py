@@ -1,10 +1,14 @@
 from os import environ
+import os
+from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template
 from flask import redirect, url_for
 from flask import request
 from werkzeug.wrappers import Request, Response, ResponseStream
+
+load_dotenv()
 
 
 MONGO_HOST = environ.get('MONGO_HOST', 'localhost')
@@ -13,6 +17,12 @@ MONGO_USER = environ.get('MONGO_USER', 'user')
 MONGO_PASS = environ.get('MONGO_PASS', 'pass')
 MONGO_DBNAME = environ.get('MONGO_DBNAME', 'local')
 MONGO_AUTH_SOURCE = environ.get('MONGO_AUTH_SOURCE', 'admin')
+FLASK_HOST = environ.get('FLASK_HOST', 'localhost')
+FLASK_PORT = int(environ.get('FLASK_PORT', 8080))
+
+print('============================ Running flask @ ' + FLASK_HOST + ':' + str(FLASK_PORT))
+print('============================ Connected to mongo @ ' + MONGO_HOST + ':' + str(MONGO_PORT))
+
 
 app = Flask(__name__)
 
@@ -47,7 +57,8 @@ try:
         port=MONGO_PORT,
         username=MONGO_USER,
         password=MONGO_PASS,
-        authSource=MONGO_AUTH_SOURCE
+        authSource=MONGO_AUTH_SOURCE,
+        serverSelectionTimeoutMS=1
     )
     db = client[MONGO_DBNAME]
     posts = db.posts
@@ -76,7 +87,7 @@ def posts_get():
 @app.route('/post/<post_id>')
 def post_get(post_id):
     return render_template(
-        'pages/posts.html',
-        posts=posts.find({'_id' : ObjectId(post_id)}),
+        'pages/post.html',
+        post=posts.find_one({"_id" : ObjectId(post_id)}),
         categories=categories.find()
     )

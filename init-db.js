@@ -3,7 +3,7 @@ db = db.getSiblingDB("levach");
 db.posts.drop();
 db.posts.insertMany([
     {
-        "id": 1,
+        //"id": 1,
         "lang": "ru-RU",
         "title": "Советский вопрос",
         "revisions": [
@@ -12,7 +12,7 @@ db.posts.insertMany([
         "comments": []
     },
     {
-        "id": 2,
+        //"id": 2,
         "lang": "ru-RU",
         "title": "Конец капитализма",
         "revisions": [
@@ -21,7 +21,7 @@ db.posts.insertMany([
         "comments": []
     },
     {
-        "id": 3,
+        //"id": 3,
         "lang": "ru-RU",
         "title": "А чего мы, собственно, хотим?",
         "revisions": [

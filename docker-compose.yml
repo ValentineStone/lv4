@@ -3,7 +3,7 @@ services:
 
   app:
     build: .
-    command: python -m flask --debug --app /app/app run --host 0.0.0.0
+    command: python -m flask --debug --app /app/app run --host ${FLASK_HOST} --port ${FLASK_PORT}
     ports:
       - ${FLASK_PORT}:${FLASK_PORT}
     volumes:
@@ -21,4 +21,4 @@ services:
     volumes:
       - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:${MONGO_PORT}

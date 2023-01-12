@@ -1,13 +1,14 @@
 {% import 'components/social-buttons.html' as Social %}
 {% from 'components/comments.html' import Comment %}
-{% macro Post(_id, title, photo, text, views, comments, likes, dislikes) %}
+{% macro Post(_id, title, photo='missing-image.svg', revisions=[], views=0, comments=[], likes=0, dislikes=0) %}
 <figure id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
+  <!--{{kwargs.get('html_comment','')}}-->
   <img src="{{ url_for('static', filename=photo) }}">
   <section>
-    {{text}}
+    {{revisions[0] if revisions else 'Статья ещё не написана'}}
   </section>
   <section style="color:#2F88F0">
     #технологии#айфон#иос
@@ -25,7 +26,7 @@
     {{ Social.SocialButtons(
       views=views,
       viewsActive=[True,False]|random,
-      comments=comments,
+      comments=comments|length,
       commentsActive=[True,False]|random,
       repostActive=[True,False]|random,
       likes=likes,

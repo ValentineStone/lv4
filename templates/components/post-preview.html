@@ -1,12 +1,13 @@
 {% import 'components/social-buttons.html' as Social %}
-{% macro PostPreview(_id, title, photo, text, views, comments, likes, dislikes) %}
+{% macro PostPreview(_id, title, photo='missing-image.svg', revisions=[], views=0, comments=[], likes=0, dislikes=0) %}
 <figure id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
+  <!--{{kwargs.get('html_comment','')}}-->
   <img src="{{ url_for('static', filename=photo) }}">
   <section>
-    {{text}}
+    {{revisions[0] if revisions else 'Статья ещё не написана'}}
   </section>
   <section style="text-align: center;">
     <a class="button" href="/post/{{_id}}">Читать далее...</a>
@@ -15,7 +16,7 @@
     {{ Social.SocialButtons(
       views=views,
       viewsActive=[True,False]|random,
-      comments=comments,
+      comments=comments|length,
       commentsActive=[True,False]|random,
       repostActive=[True,False]|random,
       likes=likes,

@@ -206,6 +206,11 @@ figure > figcaption, figure > section {
   padding: 0 1.5em;
 }
 
+figure > img {
+  margin: 0 auto;
+  display: block;
+}
+
 figure > img, figure > section {
   margin-top: 0.8em;
 }

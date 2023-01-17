@@ -44,6 +44,11 @@ or
 - `journalctl -f -u lv4` to view the libe log
 - `sudo systemctl stop lv4` to stop the service
 
+## Extras
+
+- `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080`
+- `iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080`
+
 ## References
 
 - Design reference in Figma - https://www.figma.com/file/9B9S8C2aSLCABUiTP9t5yl/Untitled?node-id=0%3A1

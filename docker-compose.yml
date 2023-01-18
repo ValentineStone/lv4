@@ -1,6 +1,19 @@
 version: '3'
 services:
 
+  db:
+    image: mongo:latest
+    hostname: ${MONGO_HOST}
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_DBNAME}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+
   app:
     build: .
     command: python -m flask --debug --app /app/app run --host ${FLASK_HOST} --port ${FLASK_PORT}
@@ -10,15 +23,3 @@ services:
       - .:/app
     links:
       - db
-
-  db:
-    image: mongo:latest
-    hostname: ${MONGO_HOST}
-    environment:
-      - MONGO_INITDB_DATABASE=${MONGO_DBNAME}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
-    volumes:
-      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
-    ports:
-      - ${MONGO_PORT}:${MONGO_PORT}

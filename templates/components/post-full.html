@@ -1,6 +1,6 @@
 {% import 'components/social-buttons.html' as Social %}
 {% from 'components/comments.html' import Comment %}
-{% macro Post(_id, title, photo='missing-image.svg', revisions=[], views=0, comments=[], likes=0, dislikes=0) %}
+{% macro Post(_id, title, comments, photo='missing-image.svg', content='Статья ещё не написана', views=0, likes=0, dislikes=0) %}
 <figure id="{{ _id }}">
   <figcaption>
     {{title}}
@@ -8,7 +8,7 @@
   <!--{{kwargs.get('html_comment','')}}-->
   <img src="{{ url_for('static', filename=photo) }}">
   <section>
-    {{revisions[0] if revisions else 'Статья ещё не написана'}}
+    {{content|markdown}}
   </section>
   <section style="color:#2F88F0">
     #технологии#айфон#иос
@@ -36,151 +36,27 @@
     ) }}
   </section>
   <section>
-    12 комментариев
+    {{comments|length}} комментариев
   </section>
-  <section class="write-comment">
-    <textarea placeholder="Написать комментарий..."></textarea>
-    <div class="flex duo">
-      <div>
-        <img src="{{ url_for('static', filename='attach-file.svg') }}">
-        <img src="{{ url_for('static', filename='attach-image.svg') }}">
+  <section class="write-comment" id="reply">
+    <form>
+      <textarea placeholder="Написать комментарий..."></textarea>
+      <input name="reply_to" hidden value="">
+      <div class="flex duo">
+        <div>
+          <img src="{{ url_for('static', filename='attach-file.svg') }}">
+          <img src="{{ url_for('static', filename='attach-image.svg') }}">
+        </div>
+        <div>
+          <button class="post-comment">Отправить</button>
+        </div>
       </div>
-      <div>
-        <button class="post-comment">Отправить</button>
-      </div>
-    </div>
+    </form>
   </section>
   <section class="comments">
-    {{ Comment(
-      code='0000001',
-      date='11:36 19.09.2022',
-      content='у тебя просто денег на него нет вот и ноешь.',
-
-
-      likes=likes,
-      likesActive=[True,False]|random,
-      dislikes=dislikes,
-      dislikesActive=[True,False]|random,
-
-      replies=[{
-        'code':'0000001',
-        'date':'11:36 19.09.2022',
-        'content':'у тебя просто денег на него нет вот и ноешь.',
-  
-  
-        'likes':likes,
-        'likesActive':[True,False]|random,
-        'dislikes':dislikes,
-        'dislikesActive':[True,False]|random,
-
-        'replies': [{
-          'code':'0000001',
-          'date':'11:36 19.09.2022',
-          'content':'у тебя просто денег на него нет вот и ноешь.',
-    
-    
-          'likes':likes,
-          'likesActive':[True,False]|random,
-          'dislikes':dislikes,
-          'dislikesActive':[True,False]|random,
-  
-          'replies': []
-          },{
-            'code':'0000001',
-            'date':'11:36 19.09.2022',
-            'content':'у тебя просто денег на него нет вот и ноешь.',
-      
-      
-            'likes':likes,
-            'likesActive':[True,False]|random,
-            'dislikes':dislikes,
-            'dislikesActive':[True,False]|random,
-    
-            'replies': []
-            }]
-        },{
-          'code':'0000001',
-          'date':'11:36 19.09.2022',
-          'content':'у тебя просто денег на него нет вот и ноешь.',
-    
-    
-          'likes':likes,
-          'likesActive':[True,False]|random,
-          'dislikes':dislikes,
-          'dislikesActive':[True,False]|random,
-  
-          'replies': [{
-            'code':'0000001',
-            'date':'11:36 19.09.2022',
-            'content':'у тебя просто денег на него нет вот и ноешь.',
-      
-      
-            'likes':likes,
-            'likesActive':[True,False]|random,
-            'dislikes':dislikes,
-            'dislikesActive':[True,False]|random,
-    
-            'replies': []
-            },{
-              'code':'0000001',
-              'date':'11:36 19.09.2022',
-              'content':'у тебя просто денег на него нет вот и ноешь.',
-        
-        
-              'likes':likes,
-              'likesActive':[True,False]|random,
-              'dislikes':dislikes,
-              'dislikesActive':[True,False]|random,
-      
-              'replies': []
-              }]
-          },{
-            'code':'0000001',
-            'date':'11:36 19.09.2022',
-            'content':'у тебя просто денег на него нет вот и ноешь.',
-      
-      
-            'likes':likes,
-            'likesActive':[True,False]|random,
-            'dislikes':dislikes,
-            'dislikesActive':[True,False]|random,
-    
-            'replies': [{
-              'code':'0000001',
-              'date':'11:36 19.09.2022',
-              'content':'у тебя просто денег на него нет вот и ноешь.',
-        
-        
-              'likes':likes,
-              'likesActive':[True,False]|random,
-              'dislikes':dislikes,
-              'dislikesActive':[True,False]|random,
-      
-              'replies': []
-              },{
-                'code':'0000001',
-                'date':'11:36 19.09.2022',
-                'content':'у тебя просто денег на него нет вот и ноешь.',
-          
-          
-                'likes':likes,
-                'likesActive':[True,False]|random,
-                'dislikes':dislikes,
-                'dislikesActive':[True,False]|random,
-        
-                'replies': []
-                }]
-            }]
-    ) }}
-
-
-
-
-
-
-        
-      </div>
-    </div>
+    {% for comment in comments %}
+    {{ Comment(loop.index0|string, **comment) }}
+    {% endfor %}
   </section>
 </figure>
 {% endmacro %}

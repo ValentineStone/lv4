@@ -1,29 +1,29 @@
 {% import 'components/social-buttons.html' as Social %}
-{% macro Comment() %}
-<div class="comment">
+{% macro Comment(id) %}
+<div class="comment" id="{{id}}">
   <div class="flex duo">
     <div class="info flex">
-      <div>#{{kwargs['code']}}</div>
-      <div title="{{kwargs['date']}}" class="datetime">{{kwargs['date']}}</div>
+      <div>#{{kwargs.get('code', '0000001')}}</div>
+      <div title="{{kwargs.get('date','11:36 19.09.2022')}}" class="datetime">{{kwargs.get('date','11:36 19.09.2022')}}</div>
     </div>
     {{ Social.LikesButtons(
-      likes=kwargs['likes'],
-      likesActive=kwargs['likesActive'],
-      dislikes=kwargs['dislikes'],
-      dislikesActive=kwargs['dislikesActive'],
+      likes=kwargs.get('likes', 0),
+      likesActive=kwargs.get('likesActive'),
+      dislikes=kwargs.get('dislikes', 0),
+      dislikesActive=kwargs.get('dislikesActive'),
     ) }}
   </div>
   <div class="content">
-    {{kwargs['content']}}
+    {{kwargs.get('content', '')|markdown}}
   </div>
   <div class="actions flex">
-    <div>Ответить</div>
+    <div onclick="document.querySelector('input[name=reply_to]').value = '{{id}}';location='#reply'">Ответить</div>
     <div>Пожаловаться</div>
   </div>
   <div class="comments">
-    {% for reply in kwargs['replies'] %}
+    {% for reply in kwargs.get('comments', []) %}
     <div class="reply">
-      {{Comment(**reply)}}
+      {{Comment(id + ':' + (loop.index0|string), **reply)}}
     </div>
     {% endfor %}
   </div>

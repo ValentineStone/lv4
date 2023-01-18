@@ -21,7 +21,7 @@ Use the latest version of Python. Flask supports Python 3.7 and newer
    - linux `python3 -m venv venv`
 5. - win `venv\Scripts\activate.bat`
    - linux `source venv/bin/activate`
-6. `pip install Flask pymongo python-dotenv`
+6. `pip install Flask pymongo python-dotenv cmarkgfm`
 7. copy `.env.example` into `.env` and change it according to your setup
 
 To setup the `systemd` service:

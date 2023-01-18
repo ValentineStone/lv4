@@ -7,6 +7,8 @@ from flask import Flask, render_template
 from flask import redirect, url_for, abort
 from flask import request
 from werkzeug.wrappers import Request, Response, ResponseStream
+import cmarkgfm
+import markupsafe
 
 load_dotenv()
 
@@ -68,9 +70,13 @@ except:
 
 @app.template_filter()
 def debug(text):
-  print(text)
-  return ''
+    print(text)
+    return ''
 
+
+@app.template_filter()
+def markdown(text):
+    return markupsafe.Markup(cmarkgfm.github_flavored_markdown_to_html(str(text)))
 
 @app.route('/')
 def index():
@@ -94,3 +100,18 @@ def post_get(post_id):
         post=post,
         categories=categories.find()
     )
+
+@app.route('/post/<post_id>/comment')
+def comments_post(post_id):
+    content = request.form.get('content', '')
+    reply_to = request.form.get('reply_to', '')
+    reply_indexes = list(map(int, reply_to.split(':')))
+    reply_subpath = '.'.join(reply_indexes) + '.content'
+    try:
+        post = posts.update_one(
+            {'_id' : ObjectId(post_id)},
+            { '$push': { reply_subpath: content  } }
+        )
+    except:
+        abort(500)
+    return { 'success': True }

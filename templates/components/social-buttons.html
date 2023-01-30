@@ -1,33 +1,33 @@
 {% macro ViewsButton(count, active=False) %}
 <button class="social {{'active' if active }}">
-  <img style="width:1.6em;margin-top:-0.3em" src="{{ url_for('static', filename='views.svg') }}">
+  <img class="views-svg" src="{{ url_for('static', filename='views.svg') }}">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
 {% macro CommentsButton(count, active=False) %}
 <button class="social {{'active' if active }}">
-  <img style="width:1.6em;margin-top:-0.3em" src="{{ url_for('static', filename='comment.svg') }}">
+  <img class="comment-svg" src="{{ url_for('static', filename='comment.svg') }}">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
 {% macro RepostButton(active=False) %}
 <button class="social {{'active' if active }}">
-  <img style="width:1em;margin-top:-0.3em" src="{{ url_for('static', filename='repost.svg') }}">
+  <img class="repost-svg" src="{{ url_for('static', filename='repost.svg') }}">
 </button>
 {% endmacro %}
 
 {% macro LikesButton(count, active=False) %}
 <button class="social {{'active' if active }}">
-  <img style="width:1.24em;margin-top:-0.5em" src="{{ url_for('static', filename='like.svg') }}">
+  <img class="like-svg" src="{{ url_for('static', filename='like.svg') }}">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
 {% macro DislikesButton(count, active=False) %}
 <button class="social {{'active' if active }}">
-  <img style="width:1.24em;margin-bottom:-0.375em" src="{{ url_for('static', filename='dislike.svg') }}">
+  <img class="dislike-svg" src="{{ url_for('static', filename='dislike.svg') }}">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
@@ -71,9 +71,9 @@
 {% macro Liked(liked=None) %}
 <div class="social">
   {% if liked == True %}
-  <img style="width:1.24em;margin-top:-0.5em" src="{{ url_for('static', filename='like.svg') }}">
+  <img class="like-svg" src="{{ url_for('static', filename='like.svg') }}">
   {% elif liked == False %}
-  <img style="width:1.24em;margin-bottom:-0.375em" src="{{ url_for('static', filename='dislike.svg') }}">
+  <img class="dislike-svg" src="{{ url_for('static', filename='dislike.svg') }}">
   {% else %}
   {% endif %}
 </div>

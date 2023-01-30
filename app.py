@@ -115,3 +115,8 @@ def comments_post(post_id):
     except:
         abort(500)
     return { 'success': True }
+
+
+@app.route('/components')
+def components():
+    return render_template('pages/components.html')

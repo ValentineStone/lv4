@@ -328,6 +328,28 @@ main > * {
   color: #a6a6a7;
 }
 
+
+img.like-svg {
+  width:1.24em;
+  margin-top:-0.5em;
+}
+
+img.dislike-svg {
+  width:1.24em;
+  margin-bottom:-0.375em;
+}
+
+img.views-svg,
+img.comment-svg {
+  width:1.6em;margin-top:-0.3em;
+}
+
+img.repost-svg {
+  width:1em;
+  margin-top:-0.3em;
+}
+
+
 .rainbow {
   animation: rainbow-bg 10s linear;
   animation-iteration-count: infinite;

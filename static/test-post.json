@@ -1,0 +1,128 @@
+{
+  "_id": {
+    "$oid": "000000000000000000000000"
+  },
+  "content": "Das religiöse Elend ist in einem der Ausdruck des wirklichen Elendes und in einem die Protestation gegen das wirkliche Elend. Die Religion ist der **Seufzer der bedrängten Kreatur**, das Gemüt einer herzlosen Welt, wie sie der Geist geistloser Zustände ist. Sie ist das **Opium des Volkes.**\n[Источник](http://www.mlwerke.de/me/me01/me01_378.htm)",
+  "photo": "photos/streetmarx.webp",
+  "comments": [
+    {
+      "content": "no u",
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1672731766488"
+        }
+      },
+      "comments": [
+        {
+          "content": "no u",
+          "createdAt": {
+            "$date": {
+              "$numberLong": "1672732766488"
+            }
+          },
+          "comments": [
+            {
+              "content": "no u",
+              "createdAt": {
+                "$date": {
+                  "$numberLong": "1672733766488"
+                }
+              },
+              "comments": [
+                {
+                  "content": "no u",
+                  "createdAt": {
+                    "$date": {
+                      "$numberLong": "1672734766488"
+                    }
+                  }
+                },
+                {
+                  "content": "no u 2",
+                  "createdAt": {
+                    "$date": {
+                      "$numberLong": "1672734866488"
+                    }
+                  }
+                },
+                {
+                  "content": "no u 3",
+                  "createdAt": {
+                    "$date": {
+                      "$numberLong": "1672734966488"
+                    }
+                  },
+                  "dislikes": {
+                    "$numberLong": "14"
+                  },
+                  "likes": {
+                    "$numberLong": "33"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "marx schmarx",
+              "createdAt": {
+                "$date": {
+                  "$numberLong": "1672735066488"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "content": "вовоу а по русски!",
+          "createdAt": {
+            "$date": {
+              "$numberLong": "1672735166488"
+            }
+          }
+        }
+      ],
+      "dislikes": {
+        "$numberLong": "4"
+      }
+    },
+    {
+      "content": "понаехали тут",
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1672735266488"
+        }
+      },
+      "comments": [
+        {
+          "content": "сам понаехал(а)!",
+          "createdAt": {
+            "$date": {
+              "$numberLong": "1672735366488"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "content": "\n> marx schmarx\n\nшлёпанный крот, кожанный мяч\n\n<script>alert('хаха, я взломал ваш сайт!')</script>\n  ",
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1672735466488"
+        }
+      }
+    },
+    {
+      "content": "delete me"
+    }
+  ],
+  "title": "Zur Kritik der Hegelschen Rechtsphilosophie",
+  "tags": [
+    "BedrängtenKreatur",
+    "OpiumDesVolkes",
+    "Religion"
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672734766488"
+    }
+  }
+}

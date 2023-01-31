@@ -1,79 +1,72 @@
-{% macro ViewsButton(count, active=False) %}
-<button class="social {{'active' if active }}">
-  <img class="views-svg" src="{{ url_for('static', filename='views.svg') }}">
+{% macro ViewsButton(count) %}
+<button class="social {{'active' if count }}">
+  <img class="views-svg" src="/static/views.svg">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
-{% macro CommentsButton(count, active=False) %}
-<button class="social {{'active' if active }}">
-  <img class="comment-svg" src="{{ url_for('static', filename='comment.svg') }}">
+{% macro CommentsButton(count) %}
+<button class="social {{'active' if count }}">
+  <img class="comment-svg" src="/static/comment.svg">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
 {% macro RepostButton(active=False) %}
 <button class="social {{'active' if active }}">
-  <img class="repost-svg" src="{{ url_for('static', filename='repost.svg') }}">
+  <img class="repost-svg" src="/static/repost.svg">
 </button>
 {% endmacro %}
 
-{% macro LikesButton(count, active=False) %}
-<button class="social {{'active' if active }}">
-  <img class="like-svg" src="{{ url_for('static', filename='like.svg') }}">
+{% macro LikesButton(count) %}
+<button class="social {{'active' if count }}">
+  <img class="like-svg" src="/static/like.svg">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
-{% macro DislikesButton(count, active=False) %}
-<button class="social {{'active' if active }}">
-  <img class="dislike-svg" src="{{ url_for('static', filename='dislike.svg') }}">
+{% macro DislikesButton(count) %}
+<button class="social {{'active' if count }}">
+  <img class="dislike-svg" src="/static/dislike.svg">
   <span>{{count}}</span>
 </button>
 {% endmacro %}
 
 {% macro SocialButtons(
   views,
-  viewsActive,
   comments,
-  commentsActive,
-  repostActive,
   likes,
-  likesActive,
-  dislikes,
-  dislikesActive
+  dislikes
 ) %}
 <div class="flex duo">
   <div>
-    {{ ViewsButton(views, [True, False] | random) }}
-    {{ CommentsButton(comments, [True, False] | random) }}
-    {{ RepostButton([True, False] | random) }}
+    {{ ViewsButton(views) }}
+    {{ CommentsButton(comments) }}
+    {{ RepostButton() }}
   </div>
   <div>
-    {{ LikesButton(likes, [True, False] | random) }}
-    {{ DislikesButton(dislikes, [True, False] | random) }}
+    {{ LikesButton(likes) }}
+    {{ DislikesButton(dislikes) }}
   </div>
 </div>
 {% endmacro %}
 
 {% macro LikesButtons(
   likes,
-  likesActive,
-  dislikes,
-  dislikesActive
+  dislikes
 ) %}
 <div class="flex">
-  {{ LikesButton(likes, [True, False] | random) }}
-  {{ DislikesButton(dislikes, [True, False] | random) }}
+  {{ LikesButton(likes) }}
+  {{ DislikesButton(dislikes) }}
 </div>
 {% endmacro %}
 
 {% macro Liked(liked=None) %}
 <div class="social">
   {% if liked == True %}
-  <img class="like-svg" src="{{ url_for('static', filename='like.svg') }}">
+  <img class="like-svg" src="/static/like.svg">
   {% elif liked == False %}
-  <img class="dislike-svg" src="{{ url_for('static', filename='dislike.svg') }}">
+  <img class="dislike-svg" src="/static/dislike.svg">
   {% else %}
   {% endif %}
 </div>

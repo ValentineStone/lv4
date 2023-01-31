@@ -1,5 +1,6 @@
 from os import environ
 import os
+import sys
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -9,9 +10,12 @@ from flask import request
 from werkzeug.wrappers import Request, Response, ResponseStream
 import cmarkgfm
 import markupsafe
+from werkzeug.exceptions import HTTPException
+import secrets
+
+from app_utils import Fake, nested_path
 
 load_dotenv()
-
 
 MONGO_HOST = environ.get('MONGO_HOST', 'localhost')
 MONGO_PORT = int(environ.get('MONGO_PORT', 27017))
@@ -22,12 +26,10 @@ MONGO_AUTH_SOURCE = environ.get('MONGO_AUTH_SOURCE', 'admin')
 FLASK_HOST = environ.get('FLASK_HOST', 'localhost')
 FLASK_PORT = int(environ.get('FLASK_PORT', 8080))
 
-print('============================ Running flask @ ' + FLASK_HOST + ':' + str(FLASK_PORT))
-print('============================ Connected to mongo @ ' + MONGO_HOST + ':' + str(MONGO_PORT))
-
+print('Running flask @ ' + FLASK_HOST + ':' + str(FLASK_PORT), file=sys.stderr)
+print('Connected to mongo @ ' + MONGO_HOST + ':' + str(MONGO_PORT), file=sys.stderr)
 
 app = Flask(__name__)
-
 
 class middleware():
     def __init__(self, app):
@@ -41,11 +43,6 @@ class middleware():
 app.wsgi_app = middleware(app.wsgi_app)
 app.jinja_env.auto_reload = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-
-
-class Fake:
-    def find(self, *args):
-        return []
 
 client = None
 app = Flask(__name__)
@@ -68,15 +65,32 @@ try:
 except:
     print('No connection')
 
+@app.errorhandler(HTTPException)
+def http_error(exc):
+    return render_template(
+        'pages/error.html',
+        code = exc.code,
+        name = exc.name,
+        description = exc.description
+    ), exc.code
+
 @app.template_filter()
 def debug(text):
-    print(text)
+    print(text, file=sys.stderr)
     return ''
 
 
 @app.template_filter()
 def markdown(text):
-    return markupsafe.Markup(cmarkgfm.github_flavored_markdown_to_html(str(text)))
+    return markupsafe.Markup(
+        '<div class="markdown-body">'
+        + cmarkgfm.github_flavored_markdown_to_html(str(text))
+        + '</div>'
+    )
+    
+@app.template_filter()
+def rudate(date):
+    return date.strftime('%H:%M %d.%m.%y') if date else ''
 
 @app.route('/')
 def index():
@@ -101,21 +115,48 @@ def post_get(post_id):
         categories=categories.find()
     )
 
-@app.route('/post/<post_id>/comment')
-def comments_post(post_id):
+@app.route('/ADMIN/POST_COMMENT', methods=['POST'])
+def admin_comment_post():
     content = request.form.get('content', '')
-    reply_to = request.form.get('reply_to', '')
-    reply_indexes = list(map(int, reply_to.split(':')))
-    reply_subpath = '.'.join(reply_indexes) + '.content'
+    post_id = request.form.get('post_id', '')
+    comment_id = request.form.get('comment_id', '')
+    comments_subpath = nested_path(comment_id, 'comments', field_last=True)
+    edit_secret = secrets.token_urlsafe(256)
     try:
         post = posts.update_one(
             {'_id' : ObjectId(post_id)},
-            { '$push': { reply_subpath: content  } }
+            { '$push': { comments_subpath: {
+                'content': content,
+                'edit_secret': edit_secret,
+            }}}
         )
-    except:
-        abort(500)
-    return { 'success': True }
+        print(comments_subpath, file=sys.stderr)
+        count = list(posts.aggregate([{ '$project': { '_id' : ObjectId(post_id), 'count': { '$size': '$' + comments_subpath }}}, { '$limit': 1 }]))
+        print(count, file=sys.stderr)
+        return redirect(url_for(
+            'post_get',
+            post_id=post_id,
+            _anchor=comment_id,
+            edit_secret=edit_secret,
+        ))
+    except Exception as e:
+        abort(500, str(e))
 
+@app.route('/ADMIN/DELETE_COMMENT/<post_id>/<comment_id>')
+def admin_delete_comment(post_id, comment_id):
+    comment_indexes = list(x - 1 for x in map(int, comment_id.split('_')))
+    comment_subpath = nested_path(comment_id, 'comments')
+    try:
+        posts.update_one(
+            {'_id' : ObjectId(post_id)},
+            {'$set' : {
+                comment_subpath + '.content':  '',
+                comment_subpath + '.deleted': True
+            }}
+        )
+        return redirect(url_for('post_get', post_id=post_id, _anchor=comment_id))
+    except Exception as e:
+        abort(500, str(e))
 
 @app.route('/components')
 def components():

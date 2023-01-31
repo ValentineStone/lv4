@@ -1,29 +1,58 @@
 {% import 'components/social-buttons.html' as Social %}
-{% macro Comment(id) %}
+
+{% macro ReplyForm(post_id, comment_id) %}
+<section class="write-comment">
+  <form method="post" action="/ADMIN/POST_COMMENT">
+    <textarea name="content" placeholder="Написать ответ..." autofocus></textarea>
+    <input name="post_id" hidden value="{{post_id}}">
+    {% if comment_id %}
+    <input name="comment_id" hidden value="{{comment_id}}">
+    {% endif %}
+    <div class="flex duo">
+      <div>
+        <img src="/static/attach-file.svg">
+        <img src="/static/attach-image.svg">
+      </div>
+      <div>
+        <button class="post-comment">Отправить</button>
+      </div>
+    </div>
+  </form>
+</section>
+{% endmacro %}
+
+{% macro Comment(id, post_id) %}
 <div class="comment" id="{{id}}">
   <div class="flex duo">
     <div class="info flex">
-      <div>#{{kwargs.get('code', '0000001')}}</div>
-      <div title="{{kwargs.get('date','11:36 19.09.2022')}}" class="datetime">{{kwargs.get('date','11:36 19.09.2022')}}</div>
+      <div><a class="clear" href="#{{id}}">#{{id}}</a></div>
+      <div title="{{kwargs.get('createdAt')|rudate}}" class="datetime">
+        {{kwargs.get('createdAt')|rudate}}
+      </div>
     </div>
     {{ Social.LikesButtons(
-      likes=kwargs.get('likes', 0),
-      likesActive=kwargs.get('likesActive'),
-      dislikes=kwargs.get('dislikes', 0),
-      dislikesActive=kwargs.get('dislikesActive'),
+    likes=kwargs.get('likes', 0),
+    dislikes=kwargs.get('dislikes', 0),
     ) }}
   </div>
-  <div class="content">
+  <div class="content {{'disabled' if kwargs.get('deleted')}}">
     {{kwargs.get('content', '')|markdown}}
+    {{'[комментарий удален]' if kwargs.get('deleted')}}
   </div>
+  {% if id == request.args.get('reply_to') %}
+  {{ ReplyForm(post_id, request.args.get('reply_to')) }}
+  {% endif %}
   <div class="actions flex">
-    <div onclick="document.querySelector('input[name=reply_to]').value = '{{id}}';location='#reply'">Ответить</div>
-    <div>Пожаловаться</div>
+    <a class="clear" href="?reply_to={{id}}#{{id}}">Ответить</a>
+    <a class="clear">Пожаловаться</a>
+    {% if not kwargs.get('deleted') %}
+    <a class="clear" href="/ADMIN/DELETE_COMMENT/{{post_id}}/{{id}}">🗑️</a>
+    {% endif %}
   </div>
   <div class="comments">
     {% for reply in kwargs.get('comments', []) %}
     <div class="reply">
-      {{Comment(id + ':' + (loop.index0|string), **reply)}}
+      {{Comment(id + '_' + (loop.index|string), post_id=post_id, **reply)}}
     </div>
     {% endfor %}
   </div>

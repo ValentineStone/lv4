@@ -6,7 +6,9 @@
 {% include 'components/aside.html' %}
 
 <main>
-  {{ Post(**post) }}
+  {{ Post(
+    **post
+  ) }}
 </main>
 
 {% include 'foot.html' %}

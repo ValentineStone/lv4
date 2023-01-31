@@ -1,0 +1,16 @@
+{% from 'components/post-preview.html' import PostPreview %}
+
+{% include 'head.html' %}
+
+{% include 'components/navigation.html' %}
+{% include 'components/aside.html' %}
+
+<main>
+  <div class="disabled">
+    <div style="font-size:9.5rem;">{{code}} </div>
+    <div style="font-size:3rem;padding-left:2rem;">{{name}}</div>
+    <div style="margin-top:1em;padding-left:2rem;white-space:pre-wrap;">{{description}}</div>
+  </div>
+</main>
+
+{% include 'foot.html' %}

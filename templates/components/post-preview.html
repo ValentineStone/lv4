@@ -5,7 +5,7 @@
     {{title}}
   </figcaption>
   <!--{{kwargs.get('html_comment','')}}-->
-  <img src="{{ url_for('static', filename=photo) }}">
+  <img src="/static/{{photo}}">
   <section>
     {{content|markdown}}
   </section>
@@ -15,14 +15,9 @@
   <section>
     {{ Social.SocialButtons(
       views=views,
-      viewsActive=[True,False]|random,
       comments=comments|length,
-      commentsActive=[True,False]|random,
-      repostActive=[True,False]|random,
       likes=likes,
-      likesActive=[True,False]|random,
       dislikes=dislikes,
-      dislikesActive=[True,False]|random,
     ) }}
   </section>
 </figure>

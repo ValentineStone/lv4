@@ -58,7 +58,6 @@ html, body {
   background: #f1f4ff;
   font-family: Inter, sans-serif;
   font-weight: 500;
-  line-height: 1.8em;
   font-size: 16px;
 }
 
@@ -100,6 +99,10 @@ nav button, nav .button {
   background: #A8D4FC;
 }
 
+*[id] {
+  scroll-margin-top: 6rem;
+}
+
 aside {
   background: #f1f4ff;
   padding-left: 5rem;
@@ -112,9 +115,12 @@ aside {
   display: flex;
   flex-direction: column;
   font-size: 1.25rem;
-  line-height: 2.5rem;
   overflow: auto;
   z-index: 1;
+}
+
+aside li, aside summary {
+  margin-bottom: 0.9rem;
 }
 
 aside > ol {
@@ -150,6 +156,7 @@ details > summary::after {
   font-size: 2em;
   display: inline-block;
   position: absolute;
+  line-height: 0.8em;
 }
 details[open] > summary::after {
   content: '▾';
@@ -177,6 +184,11 @@ a.button {
   text-decoration: none;
 }
 
+a.clear {
+  text-decoration: none;
+  color: inherit;
+}
+
 .social {
   background: unset;
   color: unset;
@@ -190,7 +202,7 @@ a.button {
   filter: brightness(0);
 }
 
-button.round {
+button.round, .button.round {
   padding: 0.2em;
 }
 
@@ -215,7 +227,7 @@ figure > img, figure > section {
   margin-top: 0.8em;
 }
 
-figure > .write-comment {
+figure .write-comment {
   background: #D9D9D9;
   border-radius: 1em;
 
@@ -228,23 +240,27 @@ figure > .write-comment {
   padding-bottom: 0.4em;
 }
 
-figure > .write-comment textarea {
+figure .write-comment textarea {
   width: 100%;
   resize: none;
   margin-right: 1.1em;
   margin-bottom: 0.8em;
 }
 
-figure > .write-comment textarea::placeholder {
+figure .write-comment textarea::placeholder {
   color: #898989;
 }
 
-figure > .write-comment button.post-comment {
+figure .write-comment button.post-comment {
   font-size: 1.25rem;
   background: #2F88F0;
   box-shadow: none;
 }
 
+figure .comment > .write-comment {
+  margin: 0;
+  font-size: 1.25rem;
+}
 
 figure section.comments {
   padding-left: 0;
@@ -252,6 +268,12 @@ figure section.comments {
 figure section.comments .comment {
   padding-left: 1.5em;
   position: relative;
+}
+figure section.comments .comment > :not(:first-child) {
+  margin-top: 0.8em;
+}
+figure section.comments .comment > .actions{
+  margin-bottom: 2em;
 }
 figure section.comments .comment .info {
   overflow: hidden;
@@ -270,13 +292,7 @@ figure section.comments .comment .social {
 }
 
 figure section.comments .comment .content {
-  margin-top: 0.8em;
   font-size: 1.25rem;
-}
-
-figure section.comments .comment .actions {
-  margin-top: 0.8em;
-  margin-bottom: 2em;
 }
 
 figure section.comments .comment .actions > * {
@@ -310,6 +326,10 @@ figure section.comments .comment .reply:not(:last-child)::after {
   bottom: -1em;
   position: absolute;
   border-left: 0.15em solid #9E9E9E;
+}
+
+figure section.tags {
+  color: #2F88F0;
 }
 
 
@@ -399,10 +419,12 @@ img.repost-svg {
   }
   aside {
     font-size: 1rem;
-    line-height: unset;
     padding-left: 2rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+  }
+  aside li, aside summary {
+    margin-bottom: 0.6rem;
   }
   aside ol ol {
     margin-left: 2rem;

@@ -1,61 +1,56 @@
 {% import 'components/social-buttons.html' as Social %}
 {% from 'components/comments.html' import Comment %}
-{% macro Post(_id, title, comments, photo='missing-image.svg', content='Статья ещё не написана', views=0, likes=0, dislikes=0) %}
+{% from 'components/comments.html' import ReplyForm %}
+{% macro Post(
+  _id,
+  title,
+  comments,
+  photo='missing-image.svg',
+  content='Статья ещё не написана',
+  views=0,
+  likes=0,
+  dislikes=0,
+  tags=[],
+  createdAt=0
+) %}
 <figure id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
   <!--{{kwargs.get('html_comment','')}}-->
-  <img src="{{ url_for('static', filename=photo) }}">
+  <img src="/static/{{photo}}">
   <section>
     {{content|markdown}}
   </section>
-  <section style="color:#2F88F0">
-    #технологии#айфон#иос
+  <section class="tags">
+    {% for tag in tags %}
+    <a class="clear" href="#">#{{ tag }}</a>
+    {% endfor %}
   </section>
   <section class="flex duo">
     <div style="display: flex; align-items: center;">
-      <img style="height: 1.5em; margin-right: 0.5em;" src="{{ url_for('static', filename='accepted-by-editor.svg') }}">
+      <img style="height: 1.5em; margin-right: 0.5em;" src="/static/accepted-by-editor.svg">
       Одобрено редакцией
     </div>
     <div class="disabled" style="display: flex; align-items: center;">
-      10:36 19.09.2022
+      {{createdAt|rudate}}
     </div>
   </section>
   <section>
     {{ Social.SocialButtons(
       views=views,
-      viewsActive=[True,False]|random,
       comments=comments|length,
-      commentsActive=[True,False]|random,
-      repostActive=[True,False]|random,
       likes=likes,
-      likesActive=[True,False]|random,
       dislikes=dislikes,
-      dislikesActive=[True,False]|random,
     ) }}
   </section>
   <section>
     {{comments|length}} комментариев
   </section>
-  <section class="write-comment" id="reply">
-    <form>
-      <textarea placeholder="Написать комментарий..."></textarea>
-      <input name="reply_to" hidden value="">
-      <div class="flex duo">
-        <div>
-          <img src="{{ url_for('static', filename='attach-file.svg') }}">
-          <img src="{{ url_for('static', filename='attach-image.svg') }}">
-        </div>
-        <div>
-          <button class="post-comment">Отправить</button>
-        </div>
-      </div>
-    </form>
-  </section>
+  {{ ReplyForm(_id) }}
   <section class="comments">
     {% for comment in comments %}
-    {{ Comment(loop.index0|string, **comment) }}
+    {{ Comment(loop.index|string, post_id=_id, **comment) }}
     {% endfor %}
   </section>
 </figure>

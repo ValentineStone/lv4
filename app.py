@@ -116,7 +116,7 @@ def post_get(post_id):
     )
 
 @app.route('/ADMIN/POST_COMMENT', methods=['POST'])
-def admin_comment_post():
+def admin_postcomment_post():
     content = request.form.get('content', '')
     post_id = request.form.get('post_id', '')
     comment_id = request.form.get('comment_id', '')
@@ -131,13 +131,46 @@ def admin_comment_post():
             }}}
         )
         print(comments_subpath, file=sys.stderr)
-        count = list(posts.aggregate([{ '$project': { '_id' : ObjectId(post_id), 'count': { '$size': '$' + comments_subpath }}}, { '$limit': 1 }]))
-        print(count, file=sys.stderr)
         return redirect(url_for(
             'post_get',
             post_id=post_id,
-            _anchor=comment_id,
             edit_secret=edit_secret,
+            _anchor='editable',
+        ))
+    except Exception as e:
+        abort(500, str(e))
+
+@app.route('/ADMIN/EDIT_COMMENT', methods=['POST'])
+def admin_editcomment_post():
+    content = request.form.get('content', '')
+    post_id = request.form.get('post_id', '')
+    comment_id = request.form.get('comment_id', '')
+    edit_secret = request.form.get('edit_secret', '')
+    FIX_edit_secret = edit_secret
+    if edit_secret.startswith('ADMIN_FAKE_SECRET_') and edit_secret.endswith(comment_id):
+        edit_secret = None
+        FIX_edit_secret = secrets.token_urlsafe(256)
+    comments_subpath = nested_path(comment_id, 'comments')
+    print(comments_subpath, file=sys.stderr)
+    print(edit_secret, file=sys.stderr)
+    print(content, file=sys.stderr)
+    try:
+        post = posts.find_one(
+            {'_id' : ObjectId(post_id), comments_subpath + '.edit_secret': edit_secret }
+        )
+        print(post, file=sys.stderr)
+        post = posts.update_one(
+            {'_id' : ObjectId(post_id), comments_subpath + '.edit_secret': edit_secret },
+            { '$set': {
+                comments_subpath + '.content': content,
+                comments_subpath + '.edit_secret': FIX_edit_secret
+            }}
+        )
+        return redirect(url_for(
+            'post_get',
+            post_id=post_id,
+            edit_secret=FIX_edit_secret,
+            _anchor='editable',
         ))
     except Exception as e:
         abort(500, str(e))

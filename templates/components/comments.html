@@ -1,12 +1,16 @@
 {% import 'components/social-buttons.html' as Social %}
+{% from 'components/status.html' import Status %}
 
-{% macro ReplyForm(post_id, comment_id) %}
+{% macro ReplyForm(post_id, comment_id, content='', edit_secret='') %}
 <section class="write-comment">
-  <form method="post" action="/ADMIN/POST_COMMENT">
-    <textarea name="content" placeholder="Написать ответ..." autofocus></textarea>
+  <form method="post" action="{{'/ADMIN/EDIT_COMMENT' if edit_secret else '/ADMIN/POST_COMMENT'}}">
+    <textarea name="content" placeholder="{{'Редактировать...' if edit_secret else 'Написать ответ...'}}">{{content}}</textarea>
     <input name="post_id" hidden value="{{post_id}}">
     {% if comment_id %}
     <input name="comment_id" hidden value="{{comment_id}}">
+    {% endif %}
+    {% if edit_secret %}
+    <input name="edit_secret" hidden value="{{edit_secret}}">
     {% endif %}
     <div class="flex duo">
       <div>
@@ -14,7 +18,7 @@
         <img src="/static/attach-image.svg">
       </div>
       <div>
-        <button class="post-comment">Отправить</button>
+        <button class="post-comment">{{'Редактировать' if edit_secret else 'Отправить'}}</button>
       </div>
     </div>
   </form>
@@ -22,8 +26,10 @@
 {% endmacro %}
 
 {% macro Comment(id, post_id) %}
+{% set edit_secret = kwargs.get('edit_secret') or 'ADMIN_FAKE_SECRET_' + id %}
+{% set editable = edit_secret and edit_secret == request.args.get('edit_secret') %}
 <div class="comment" id="{{id}}">
-  <div class="flex duo">
+  <div class="flex duo" id="{{ 'editable' if editable }}">
     <div class="info flex">
       <div><a class="clear" href="#{{id}}">#{{id}}</a></div>
       <div title="{{kwargs.get('createdAt')|rudate}}" class="datetime">
@@ -31,22 +37,33 @@
       </div>
     </div>
     {{ Social.LikesButtons(
-    likes=kwargs.get('likes', 0),
-    dislikes=kwargs.get('dislikes', 0),
+    likes=kwargs.get('likes'),
+    dislikes=kwargs.get('dislikes'),
     ) }}
   </div>
+  {% if editable and request.args.get('edit') == id %}
+  {{ ReplyForm(post_id, id, kwargs.get('content'), edit_secret=edit_secret) }}
+  {% else %}
   <div class="content {{'disabled' if kwargs.get('deleted')}}">
-    {{kwargs.get('content', '')|markdown}}
+    {{kwargs.get('content')|markdown}}
     {{'[комментарий удален]' if kwargs.get('deleted')}}
   </div>
+  {% endif %}
   {% if id == request.args.get('reply_to') %}
   {{ ReplyForm(post_id, request.args.get('reply_to')) }}
+  {% elif editable %}
+  <div class="highlight">
+    <a class="clear" style="float:right;font-size:small" href="?#{{id}}">❌</a>
+    <small>Ваша ссылка на редактирование:</small>
+    <a style="word-break:break-all;font-size:small;display:block;line-height:1.4em" href="{{request.url}}&edit={{id}}#editable">{{request.url}}&edit={{id}}#editable</a>
+  </div>
   {% endif %}
   <div class="actions flex">
     <a class="clear" href="?reply_to={{id}}#{{id}}">Ответить</a>
     <a class="clear">Пожаловаться</a>
     {% if not kwargs.get('deleted') %}
     <a class="clear" href="/ADMIN/DELETE_COMMENT/{{post_id}}/{{id}}">🗑️</a>
+    <a class="clear" href="?edit_secret={{edit_secret}}&edit={{id}}#editable">✏️</a>
     {% endif %}
   </div>
   <div class="comments">

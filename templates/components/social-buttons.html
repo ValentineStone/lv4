@@ -1,14 +1,14 @@
-{% macro ViewsButton(count) %}
+{% macro ViewsButton(count=0) %}
 <button class="social {{'active' if count }}">
   <img class="views-svg" src="/static/views.svg">
-  <span>{{count}}</span>
+  <span>{{count or 0}}</span>
 </button>
 {% endmacro %}
 
-{% macro CommentsButton(count) %}
+{% macro CommentsButton(count=0) %}
 <button class="social {{'active' if count }}">
   <img class="comment-svg" src="/static/comment.svg">
-  <span>{{count}}</span>
+  <span>{{count or 0}}</span>
 </button>
 {% endmacro %}
 
@@ -18,17 +18,17 @@
 </button>
 {% endmacro %}
 
-{% macro LikesButton(count) %}
+{% macro LikesButton(count=0) %}
 <button class="social {{'active' if count }}">
   <img class="like-svg" src="/static/like.svg">
-  <span>{{count}}</span>
+  <span>{{count or 0}}</span>
 </button>
 {% endmacro %}
 
-{% macro DislikesButton(count) %}
+{% macro DislikesButton(count=0) %}
 <button class="social {{'active' if count }}">
   <img class="dislike-svg" src="/static/dislike.svg">
-  <span>{{count}}</span>
+  <span>{{count or 0}}</span>
 </button>
 {% endmacro %}
 

@@ -1,6 +1,7 @@
 {% import 'components/social-buttons.html' as Social %}
 {% from 'components/comments.html' import Comment %}
 {% from 'components/comments.html' import ReplyForm %}
+{% from 'components/status.html' import Status %}
 {% macro Post(
   _id,
   title,
@@ -27,15 +28,7 @@
     <a class="clear" href="#">#{{ tag }}</a>
     {% endfor %}
   </section>
-  <section class="flex duo">
-    <div style="display: flex; align-items: center;">
-      <img style="height: 1.5em; margin-right: 0.5em;" src="/static/accepted-by-editor.svg">
-      Одобрено редакцией
-    </div>
-    <div class="disabled" style="display: flex; align-items: center;">
-      {{createdAt|rudate}}
-    </div>
-  </section>
+  {{ Status('green', 'Одобрено редакцией', createdAt) }}
   <section>
     {{ Social.SocialButtons(
       views=views,

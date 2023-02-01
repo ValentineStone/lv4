@@ -1,0 +1,15 @@
+{% macro Status(
+  status='green',
+  comment='',
+  time=None
+) %}
+<section class="flex duo highlight">
+  <div style="display: flex; align-items: center;">
+    <img style="height: 1.5em; margin-right: 0.5em;" src="/static/status-{{status}}.svg">
+    {{comment}}
+  </div>
+  <div class="disabled" style="display: flex; align-items: center;">
+    {{time|rudate}}
+  </div>
+</section>
+{% endmacro %}

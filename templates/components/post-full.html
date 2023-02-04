@@ -14,11 +14,26 @@
   tags=[],
   createdAt=0
 ) %}
-<figure id="{{ _id }}">
+{% set edit_secret = kwargs.get('edit_secret') or 'ADMIN_FAKE_SECRET_' + _id|string %}
+{% set editable = edit_secret and edit_secret == request.args.get('edit_secret') %}
+<figure class="post" id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
   <!--{{kwargs.get('html_comment','')}}-->
+  {% if editable %}
+  <section>
+    <div class="highlight">
+      <a class="clear" style="float:right;font-size:small" href="?#{{id}}">❌</a>
+      <small>Ваша ссылка на редактирование:</small>
+      {% set edit_url = url_for('editpost', post_id=_id, edit_secret=edit_secret, _external=True) %}
+      <div class="flex" style="align-items:center;font-size:0.7em;">
+        <a class="copyable long-link" href="{{edit_url}}">{{edit_url}}</a>
+      </div>
+    </div>
+</section>
+  {% endif %}
+
   <img src="/static/{{photo}}">
   <section>
     {{content|markdown}}

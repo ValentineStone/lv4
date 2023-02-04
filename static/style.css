@@ -49,6 +49,17 @@ input, button, textarea, select {
   appearance: none;
   border: none;
   outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+}
+
+textarea::placeholder, input::placeholder {
+  color: #898989;
 }
 
 
@@ -162,7 +173,7 @@ details[open] > summary::after {
   content: '▾';
 }
 
-input {
+input.search {
   border-radius: 1000rem;
   background: white;
   padding: 0.2em 1em;
@@ -206,7 +217,13 @@ button.round, .button.round {
   padding: 0.2em;
 }
 
-figure {
+.highlight {
+  background: #D9D9D9;
+  border-radius: 1em;
+  padding: 0.4em 0.5em;
+}
+
+figure.post {
   font-size: 1.5rem;
   background: #ffffff;
   border-radius: 1rem;
@@ -214,20 +231,28 @@ figure {
   padding: 0.8em 0;
 }
 
-figure > figcaption, figure > section {
-  padding: 0 1.5em;
+figure.post > figcaption, figure.post > section {
+  padding: 0 2.25rem;
 }
 
-figure > img {
+figure.post > figcaption {
+  font-size: 2rem;
+}
+
+figure.post.preview > figcaption {
+  font-size: 1.25rem;
+}
+
+figure.post > img {
   margin: 0 auto;
   display: block;
 }
 
-figure > img, figure > section {
+figure.post > img, figure.post > section {
   margin-top: 0.8em;
 }
 
-figure .write-comment {
+figure.post .write-comment {
   background: #D9D9D9;
   border-radius: 1em;
 
@@ -240,79 +265,71 @@ figure .write-comment {
   padding-bottom: 0.4em;
 }
 
-figure .write-comment textarea {
-  width: 100%;
-  resize: none;
+figure.post .write-comment textarea {
   margin-right: 1.1em;
   margin-bottom: 0.8em;
 }
 
-figure .write-comment textarea::placeholder {
-  color: #898989;
-}
-
-figure .write-comment button.post-comment {
+figure.post .write-comment button.post-comment {
   font-size: 1.25rem;
   background: #2F88F0;
   box-shadow: none;
 }
 
-figure .comment > .write-comment {
+figure.post .comment > .write-comment {
   margin: 0;
   font-size: 1.25rem;
 }
 
-figure .comment .highlight {
-  background: #D9D9D9;
-  border-radius: 1em;
-  padding: 0.4em 0.5em;
+figure.post > .highlight {
+  background: none;
 }
 
-figure section.comments {
+figure.post section.comments {
   padding-left: 0;
 }
-figure section.comments .comment {
+figure.post section.comments .comment {
   padding-left: 1.5em;
   position: relative;
 }
-figure section.comments .comment > :not(:first-child) {
+figure.post section.comments .comment > :not(:first-child) {
   margin-top: 0.8em;
 }
-figure section.comments .comment > .actions{
+figure.post section.comments .comment > .actions{
   margin-bottom: 2em;
 }
-figure section.comments .comment .info {
+figure.post section.comments .comment .info {
   overflow: hidden;
 }
-figure section.comments .comment .info > * {
+figure.post section.comments .comment .info > * {
   margin-right: 1.5em;
 }
-figure section.comments .comment .datetime {
+figure.post section.comments .comment .datetime {
   color: #797979;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-figure section.comments .comment .social {
+figure.post section.comments .comment .social {
   flex-shrink: 0;
 }
 
-figure section.comments .comment .content {
+figure.post section.comments .comment .content {
   font-size: 1.25rem;
 }
 
-figure section.comments .comment .actions > * {
+figure.post section.comments .comment .actions > * {
   margin-right: 1.5em;
   font-size: 1.25rem;
   color: #9E9E9E;
 }
 
-figure section.comments .comment .reply {
+figure.post section.comments .comment .reply {
   position: relative;
   padding-left: 0.5em;
 }
 
-figure section.comments .comment .reply::before {
+figure.post section.comments .comment .reply::before {
   content: '';
   width: 1.5em;
   height: 1.6em;
@@ -324,7 +341,7 @@ figure section.comments .comment .reply::before {
   border-left: 0.15em solid #9E9E9E;
 }
 
-figure section.comments .comment .reply:not(:last-child)::after {
+figure.post section.comments .comment .reply:not(:last-child)::after {
   content: '';
   width: 1.5em;
   top: 1em;
@@ -334,7 +351,7 @@ figure section.comments .comment .reply:not(:last-child)::after {
   border-left: 0.15em solid #9E9E9E;
 }
 
-figure section.tags {
+figure.post section.tags {
   color: #2F88F0;
 }
 
@@ -373,6 +390,23 @@ img.comment-svg {
 img.repost-svg {
   width:1em;
   margin-top:-0.3em;
+}
+
+img.copy-svg {
+  width: 1em;
+  margin: 0.4em;
+}
+
+.copyable-button {
+  display: inline-flex;
+  margin-left: 0.5em;
+}
+
+.long-link {
+  word-break:break-all;
+  font-size:small;
+  display:block;
+  line-height:1.4em;
 }
 
 
@@ -454,7 +488,7 @@ img.repost-svg {
   nav {
     font-size: 1.25rem;
   }
-  figure {
+  figure.post {
     font-size: 1.25rem;
   }
   img.logo {
@@ -471,7 +505,7 @@ img.repost-svg {
   nav {
     font-size: 1rem;
   }
-  figure {
+  figure.post {
     font-size: 1rem;
   }
   img.logo {

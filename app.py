@@ -194,3 +194,54 @@ def admin_delete_comment(post_id, comment_id):
 @app.route('/components')
 def components():
     return render_template('pages/components.html')
+
+@app.route('/editpost/<post_id>')
+def editpost(post_id):
+    edit_secret = request.args.get('edit_secret')
+    post = {}
+    if not post_id == 'new':
+        post = posts.find_one({'_id' : ObjectId(post_id)})
+    if not post:
+        abort(404)
+    elif not post.get('edit_secret') == edit_secret:
+        abort(403)
+    return render_template(
+        'pages/editpost.html',
+        post=post,
+        categories=categories.find()
+    )
+
+@app.route('/ADMIN/EDIT_POST', methods=['POST'])
+def admin_editpost_post():
+    post_id = request.form.get('post_id', 'new')
+    content = request.form.get('content', '')
+    title = request.form.get('title', '')
+    tags = request.form.get('tags', '').split(' ')
+    edit_secret = request.form.get('edit_secret', secrets.token_urlsafe(256))
+    try:
+        if post_id == 'new':
+            post = posts.insert_one({
+                'edit_secret': edit_secret,
+                'content': content,
+                'title': title,
+                'tags': tags,
+            })
+        else:
+            post = posts.update_one({
+                '_id' : ObjectId(post_id),
+                'edit_secret': edit_secret
+            }, { '$set': {
+                'content': content,
+                'title': title,
+                'tags': tags,
+            }})
+        return redirect(url_for(
+            'post_get',
+            post_id=post.inserted_id if post_id == 'new' else post_id,
+            edit_post='true',
+            edit_secret=edit_secret,
+        ))
+
+
+    except Exception as e:
+        abort(500, str(e))

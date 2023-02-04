@@ -55,7 +55,10 @@
   <div class="highlight">
     <a class="clear" style="float:right;font-size:small" href="?#{{id}}">❌</a>
     <small>Ваша ссылка на редактирование:</small>
-    <a style="word-break:break-all;font-size:small;display:block;line-height:1.4em" href="{{request.url}}&edit={{id}}#editable">{{request.url}}&edit={{id}}#editable</a>
+    {% set edit_url = url_for('post_get', post_id=post_id, edit=id, edit_secret=edit_secret, _anchor='editable', _external=True) %}
+    <div class="flex" style="align-items:center;font-size:0.7em;">
+      <a class="long-link copyable" href="{{edit_url}}">{{edit_url}}</a>
+    </div>
   </div>
   {% endif %}
   <div class="actions flex">

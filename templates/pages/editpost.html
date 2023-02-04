@@ -1,0 +1,33 @@
+{% from 'components/post-full.html' import Post %}
+
+{% include 'head.html' %}
+
+{% include 'components/navigation.html' %}
+{% include 'components/aside.html' %}
+
+<main>
+  <form action="/ADMIN/EDIT_POST" method="post" id="editpost">
+    <figure class="post">
+      <figcaption style="margin-bottom:3rem">
+        <input name="title" placeholder="Введите заголовок..." value="{{post.get('title', '')}}">
+      </figcaption>
+      <section>
+        <textarea name="content" placeholder="Введите текст статьи..." style="min-height:500px;">{{post.get('content', '')}}</textarea>
+        <input name="tags" placeholder="Добавьте хэшэги..."  style="margin:1rem 0" value="{{' '.join(post.get('tags', []))}}">
+        {% if post.get('edit_secret') %}
+        <input name="edit_secret" type="hidden" value="{{post.get('edit_secret')}}">
+        {% endif %}
+        <input name="post_id" type="hidden" value="{{post.get('_id', 'new')}}">
+      </section>
+    </figure>
+    <button style="margin:0 auto;display:block;font-size:1.5rem; margin-top:2rem;">
+      {% if post.get('edit_secret') and post.get('_id') %}
+      Редактировать
+      {% else %}
+      Опубликовать
+      {% endif %}
+    </button>
+  </form>
+</main>
+
+{% include 'foot.html' %}

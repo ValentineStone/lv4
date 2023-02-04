@@ -1,15 +1,39 @@
 
 <script>
-  var textareas = document.getElementsByTagName('textarea');
+  var textareas = document.getElementsByTagName('textarea')
   function onTextareaInput() {
-    this.style.height = 0;
-    this.style.height = (this.scrollHeight) + 'px';
+    this.style.height = 0
+    this.style.height = (this.scrollHeight) + 'px'
   }
   for (var i = 0; i < textareas.length; i++) {
-    textareas[i].setAttribute('style', 'height:' + (textareas[i].scrollHeight) + 'px;overflow-y:hidden;');
-    textareas[i].addEventListener('input', onTextareaInput, false);
-    onTextareaInput.call(textareas[i]);
+    textareas[i].style.height = textareas[i].scrollHeight
+    textareas[i].style.overflowY = 'hidden'
+    textareas[i].addEventListener('input', onTextareaInput, false)
+    onTextareaInput.call(textareas[i])
   }
+
+  function onCopyableClick(event) {
+    try {
+      var source = this.previousElementSibling
+      var range = document.createRange()
+      range.selectNode(source)
+      window.getSelection().addRange(range)
+      document.execCommand('copy')
+      window.getSelection().removeAllRanges()
+    } catch (err) { console.log(err) }
+  }
+  var copyables = document.querySelectorAll('.copyable')
+  for (var i = 0; i < copyables.length; i++) {
+    var div = document.createElement('div')
+    var button = document.createElement('button')
+    button.className = 'copyable-button round'
+    button.innerHTML = '<img class="copy-svg" src="/static/copy.svg">'
+    div.style.display = 'inline-block'
+    div.append(button)
+    div.addEventListener('click', onCopyableClick)
+    copyables[i].after(div)
+  }
+
 </script>
 
 </body>

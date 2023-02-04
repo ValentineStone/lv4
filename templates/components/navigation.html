@@ -1,14 +1,16 @@
 <nav>
   <a href="/"><img class="logo" src="/static/logo.png"></a>
   <div>
-    <input placeholder="Поиск" class="main-search">
+    <input class="search" placeholder="Поиск" class="main-search">
   </div>
   <div>
-    <a class="button mobile-hide">
+    {% if not request.url.endswith('/editpost') %}
+    <a class="button mobile-hide" href="/editpost/new">
       Опубликовать статью
     </a>
+    {% endif %}
     <button class="round mobile-hide">
-      <span style="border-radius:2rem;margin:0 0.1em" class="fi fi-ru fis"></span>
+      <span style="border-radius:2em;margin:0 0.1em" class="fi fi-ru fis"></span>
     </button>
     <button class="mobile-show" onclick="let el = document.querySelector('aside'); el.classList.toggle('mobile-hide')">
       Меню

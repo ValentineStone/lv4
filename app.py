@@ -48,7 +48,6 @@ client = None
 app = Flask(__name__)
 
 posts = Fake()
-categories = Fake()
 
 try:
     client = MongoClient(
@@ -61,7 +60,6 @@ try:
     )
     db = client[MONGO_DBNAME]
     posts = db.posts
-    categories = db.categories
 except:
     print('No connection')
 
@@ -104,8 +102,7 @@ def index():
 def posts_get():
     return render_template(
         'pages/posts.html',
-        posts=posts.find(),
-        categories=categories.find()
+        posts=posts.find()
     )
 
 @app.route('/post/<post_id>')
@@ -115,8 +112,7 @@ def post_get(post_id):
         abort(404)
     return render_template(
         'pages/post.html',
-        post=post,
-        categories=categories.find()
+        post=post
     )
 
 @app.route('/ADMIN/POST_COMMENT', methods=['POST'])
@@ -213,8 +209,7 @@ def editpost(post_id):
         abort(403)
     return render_template(
         'pages/editpost.html',
-        post=post,
-        categories=categories.find()
+        post=post
     )
 
 @app.route('/ADMIN/EDIT_POST', methods=['POST'])

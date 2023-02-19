@@ -87,10 +87,14 @@ def markdown(text):
         + cmarkgfm.github_flavored_markdown_to_html(str(text))
         + '</div>'
     )
-    
+
 @app.template_filter()
 def rudate(date):
     return date.strftime('%H:%M %d.%m.%y') if date else ''
+
+@app.template_filter()
+def env(key, value=''):
+  return environ.get(key, value)
 
 @app.route('/')
 def index():
@@ -198,10 +202,12 @@ def components():
 @app.route('/editpost/<post_id>')
 def editpost(post_id):
     edit_secret = request.args.get('edit_secret')
+    print(post_id, file=sys.stderr)
     post = {}
     if not post_id == 'new':
         post = posts.find_one({'_id' : ObjectId(post_id)})
-    if not post:
+    print(post, file=sys.stderr)
+    if post == None:
         abort(404)
     elif not post.get('edit_secret') == edit_secret:
         abort(403)

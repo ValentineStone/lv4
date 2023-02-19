@@ -1,11 +1,13 @@
 {% import 'components/social-buttons.html' as Social %}
-{% macro PostPreview(_id, title, photo='missing-image.svg', content='Статья ещё не написана', views=0, comments=[], likes=0, dislikes=0) %}
+{% macro PostPreview(_id, title, photo='', content='Статья ещё не написана', views=0, comments=[], likes=0, dislikes=0) %}
 <figure class="post preview" id="{{ _id }}">
   <figcaption>
     {{title}}
   </figcaption>
   <!--{{kwargs.get('html_comment','')}}-->
+  {% if photo %}
   <img src="/static/{{photo}}">
+  {% endif %}
   <section>
     {{content|markdown}}
   </section>

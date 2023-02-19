@@ -6,7 +6,7 @@
   _id,
   title,
   comments,
-  photo='missing-image.svg',
+  photo='',
   content='Статья ещё не написана',
   views=0,
   likes=0,
@@ -31,14 +31,17 @@
         <a class="copyable long-link" href="{{edit_url}}">{{edit_url}}</a>
       </div>
     </div>
-</section>
+  </section>
   {% endif %}
 
+  {% if photo %}
   <img src="/static/{{photo}}">
+  {% endif %}
   <section>
     {{content|markdown}}
   </section>
   <section class="tags">
+    <a class="clear" style="float:right" href="{{url_for('editpost', post_id=_id, edit_secret=edit_secret)}}">✏️</a>
     {% for tag in tags %}
     <a class="clear" href="#">#{{ tag }}</a>
     {% endfor %}

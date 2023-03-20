@@ -1,0 +1,60 @@
+.nav {
+  background: var(--nav-background);
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 2;
+}
+
+.nav > * {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.nav > :not(:first-child):not(:last-child) { justify-content: center; }
+.nav > :last-child { justify-content: end; }
+
+.nav > * > * {
+  margin: 0 0.5rem;
+}
+
+.nav .search {
+  border-radius: 1000rem;
+  background: var(--element-background);
+  padding: 0.2em 1em;
+  outline: none;
+}
+
+.nav .button {
+  background: var(--secondary-background);
+}
+
+@media (max-width: 1200px) {
+  .nav {
+    font-size: 1.25rem;
+  }
+  .logo {
+    height: 5rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .nav {
+    font-size: 1rem;
+  }
+  .logo {
+    height: 4rem;
+  }
+}
+
+@media (max-width: 850px) {
+  img.logo {
+    height: 3rem;
+  }
+  .nav .search {
+    width: 100%;
+  }
+}

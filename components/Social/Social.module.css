@@ -1,0 +1,47 @@
+.social {
+  background: unset;
+  color: unset;
+  padding: 0.2em;
+  box-shadow: none;
+  cursor: pointer;
+}
+.social.active {
+  color: var(--primary-accent);
+}
+
+img.likeSvg {
+  width:1.24em;
+  margin-top:-0.5em;
+}
+
+img.dislikeSvg {
+  width:1.24em;
+  margin-bottom:-0.375em;
+}
+
+img.viewsSvg,
+img.commentSvg {
+  width:1.6em;margin-top:-0.3em;
+}
+
+img.repostSvg {
+  width:1em;
+  margin-top:-0.3em;
+}
+
+img.copySvg {
+  width: 1em;
+  margin: 0.4em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .social:not(.active) {
+    filter: brightness(100);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .social:not(.active) {
+    filter: brightness(0);
+  }
+}

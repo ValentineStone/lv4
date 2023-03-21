@@ -30,7 +30,7 @@ const insertCommentReply = async ({ replyToId, post, content }) => await query(`
       (SELECT
         ($1::text::ltree || (count(*) + 1)::text::ltree)
         FROM comments AS child
-        WHERE child.post = $1 AND child.id ~ ($1 || '.*{1}')::lquery
+        WHERE child.post = $2 AND child.id ~ ($1::text || '.*{1}')::lquery
       ),
       $2, $3
     ) RETURNING *`,

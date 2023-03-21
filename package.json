@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "next build",
-    "start": "next start",
-    "make": "next build && next start"
+    "start": "next start -p 8080",
+    "make": "next build && next start -p 8080"
   },
   "keywords": [],
   "author": "",

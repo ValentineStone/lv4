@@ -1,0 +1,16 @@
+[Unit]
+Description=Levach
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/ubuntu/lv4/service.sh
+KillSignal=SIGINT
+TimeoutStopSec=3
+Restart=always
+RestartSec=1
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target
+

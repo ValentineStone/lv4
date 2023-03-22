@@ -1,12 +1,5 @@
-import Inspect from '@/components/Inspect'
-import Head from 'next/head'
 import { notFound } from 'next/navigation'
-
-import { pg, query } from '@/pg'
-import Markdown from '@/components/Markdown'
-import { Fragment } from 'react'
-import { Button } from '@/components/Button'
-import styled from './Post.module.css'
+import { pg } from '@/pg'
 import EditPost from '@/components/EditPost'
 
 export const generateMetadata = async ({ params }) => {
@@ -21,7 +14,7 @@ export const generateMetadata = async ({ params }) => {
     return { title: post.title }
 }
 
-const getPost = async id => await query(
+const getPost = async id => await pg.query(
   'SELECT * FROM posts WHERE id = $1',
   [id]
 ).then(({ rows }) => rows[0]).catch(err => null)

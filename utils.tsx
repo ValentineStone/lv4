@@ -55,10 +55,12 @@ export const ltreeNest = (arr, key) => {
 
 export const sleep = async ms => await new Promise(r => setTimeout(r, ms))
 
-export const apiRedirect = req => (path, params, hash?) => {
-  const url = new URL(path, req.headers.get('origin') || req.url)
+export const makeUrl = (path, base, params, hash?) => {
+  const url = new URL(path, base)
   for (const key in params)
-    if (params[key] instanceof Error)
+    if (params[key] === undefined)
+      continue
+    else if (params[key] instanceof Error)
       url.searchParams.set(key, String(params[key]))
     else if (typeof params[key] === 'object' && params[key])
       url.searchParams.set(key, JSON.stringify(params[key]))
@@ -66,7 +68,16 @@ export const apiRedirect = req => (path, params, hash?) => {
       url.searchParams.set(key, String(params[key]))
   if (hash !== undefined)
     url.hash = hash
-  return NextResponse.redirect(url)
+  return url
+}
+
+export const apiRedirect = req => (path, params, hash?) => {
+  return NextResponse.redirect(makeUrl(
+    path,
+    req.headers.get('origin') || req.url,
+    params,
+    hash
+  ))
 }
 
 
@@ -77,3 +88,6 @@ export const jsonParse = value => {
     return value
   }
 }
+
+import { randomBytes } from 'crypto'
+export const genMutagen = () => new Promise(r => randomBytes(16, (err, buff) => r(buff.toString('hex'))))

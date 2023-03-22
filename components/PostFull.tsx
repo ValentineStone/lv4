@@ -12,7 +12,9 @@ export const PostFull = ({ id, title, content, views, comments = {}, commentsCou
     <figcaption style={{ fontSize: 'larger' }}>
       {title}
     </figcaption>
-    {!!mutagen && <EditLinkMessage mutagen={mutagen} id={id} />}
+    {!!mutagen && !searchParams.mutagenForComment && !searchParams.editComment &&
+      <EditLinkMessage mutagen={mutagen} post={id} />
+    }
     <section className={styled.content}>
       {!deleted && <>
         <a className="clear DEV" style={{ float: 'right' }} href={`/post/${id}/edit?mutagen=${mutagen || process.env.MUTAGEN_OVERRIDE}`}>✏️</a>
@@ -30,7 +32,7 @@ export const PostFull = ({ id, title, content, views, comments = {}, commentsCou
     <ReplyForm post={id} reply />
     <section className={styled.comments}>
       {Object.values<any>(comments).map((comment, i) =>
-        <Comment {...comment} searchParams={searchParams} />
+        <Comment key={comment.id} {...comment} searchParams={searchParams} />
       )}
     </section>
   </figure>

@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation'
 
-import { query } from '@/pg'
+import { pg } from '@/pg'
 import { PostFull } from '@/components/PostFull'
 import { log, ltreeNest } from '@/utils'
 import { headers } from 'next/headers'
 import Inspect from '@/components/Inspect'
+import { cache } from 'react'
 
 export const generateMetadata = async ({ params }) => {
   const post = await getPost(params.id)
@@ -14,16 +15,16 @@ export const generateMetadata = async ({ params }) => {
     return { title: post.title }
 }
 
-const getPost = async id => {
-  const post = await query(
+const getPost = cache(async id => {
+  const post = await pg.query(
     'WITH updated AS (UPDATE posts SET views = views + 1 WHERE id = $1 RETURNING *) SELECT * FROM updated',
     [id]
   ).then(({ rows }) => rows[0]).catch(err => null)
   return post
-}
+})
 
 const getComments = async id => {
-  const comments = await query(
+  const comments = await pg.query(
     'SELECT * FROM comments WHERE post = $1',
     [id]
   ).then(({ rows }) => [ltreeNest(rows, 'comments'), rows.length]).catch(err => null)
@@ -37,7 +38,8 @@ export default async ({ params, searchParams }) => {
   if (!post) return notFound()
   const h = headers()
 
-  return (
+  return <>
+    {searchParams.error && <h1 style={{ color: 'red' }}>{searchParams.error}</h1>}
     <PostFull
       {...post}
       comments={comments}
@@ -45,5 +47,5 @@ export default async ({ params, searchParams }) => {
       mutagen={mutagen}
       searchParams={searchParams}
     />
-  )
+  </>
 }

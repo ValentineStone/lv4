@@ -9,16 +9,3 @@ export const pg = new Pool({
   port: +process.env.PG_PORT,
   database: process.env.PG_DATABASE,
 })
-
-const cache = {}
-
-export const query = async (queryStr: string, params: any[] = [], timeout = 2000) => {
-  const key = queryStr + '[' + params.join(',') + ']'
-  if (!cache[key])
-    cache[key] = pg.query(queryStr, params)
-      .then(value => {
-        setTimeout(() => { delete cache[key] }, timeout)
-        return value
-      })
-  return await cache[key]
-}

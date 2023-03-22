@@ -6,6 +6,7 @@ import Textarea from './Textarea'
 import styles from './Post.module.css'
 import { Button } from './Button'
 import Inspect from './Inspect'
+import EditLinkMessage from './EditLinkMessage'
 
 export const ReplyForm = ({ id = null, post = null, reply = false, content = '', mutagen = '' }) =>
   <section className={styles['write-comment']}>
@@ -29,9 +30,8 @@ export const ReplyForm = ({ id = null, post = null, reply = false, content = '',
     </form>
   </section>
 
-export const Comment = ({ id, post, content, comments = {}, up, dn, time, deleted, mutagen, searchParams, ...rest }) => {
+export const Comment = ({ id, post, content, comments = {}, up, dn, time, deleted, searchParams, ...rest }) => {
   const comments_array = Object.values<any>(comments)
-  const editCommentUrl = `/post/${post}?editComment=${id}&mutagen=${mutagen}#${id}`
 
   return (
     <div className={styles.comment} id={id}>
@@ -51,11 +51,7 @@ export const Comment = ({ id, post, content, comments = {}, up, dn, time, delete
         </div>
       </div>
       {(id === searchParams.editComment)
-        ? <>
-          <Inspect value={jsonParse(searchParams.request)} />
-          <Inspect value={jsonParse(searchParams.response)} />
-          <ReplyForm post={post} id={id} content={content} mutagen={mutagen} />
-        </>
+        ? <ReplyForm post={post} id={id} content={content} mutagen={searchParams.mutagen} />
         : (
           <div className={styles.content}>
             {deleted
@@ -65,17 +61,11 @@ export const Comment = ({ id, post, content, comments = {}, up, dn, time, delete
           </div>
         )
       }
-      {(id === searchParams.replyTo)
-        ? <ReplyForm post={post} id={searchParams.replyTo} reply />
-        : (id === searchParams.editComment) && (
-          <div>
-            <a className="clear" style={{ float: 'right', fontSize: 'small' }} href={'?#' + id}>❌</a>
-            <small>Ваша ссылка на редактирование:</small>
-            <div className="flex" style={{ alignItems: 'center', fontSize: '0.7em' }}>
-              <a className={cx(styles['long-link'], 'copyable')} href={editCommentUrl}>{editCommentUrl}</a>
-            </div>
-          </div>
-        )
+      {id === searchParams.replyTo &&
+        <ReplyForm post={post} id={searchParams.replyTo} reply />
+      }
+      {id === searchParams.mutagenForComment &&
+        <EditLinkMessage post={post} comment={id} mutagen={searchParams.mutagen} />
       }
       <div className={styles.actions}>
         <a className="clear" href={`?replyTo=${id}#${id}`}>Ответить</a>
@@ -83,7 +73,7 @@ export const Comment = ({ id, post, content, comments = {}, up, dn, time, delete
       </div>
       <div className={styles.comments}>
         {comments_array.map((reply, i) =>
-          <div className={styles.reply}>
+          <div className={styles.reply} key={reply.id}>
             <Comment {...reply} searchParams={searchParams} />
           </div>
         )}

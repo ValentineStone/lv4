@@ -35,13 +35,18 @@
   margin-left: 3rem;
 }
 
-.Aside > ol.links {
+.Aside > ol.linksAbout {
   font-weight: 500;
   font-size: 1rem;
 }
 
-.Aside > ol.links a {
+.Aside > ol.linksAbout a {
   color: var(--primary-accent);
+}
+
+.Aside > ol.linksCategories a {
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 @media (max-width: 1800px) {

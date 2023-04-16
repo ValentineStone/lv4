@@ -11,13 +11,19 @@ export const MainMenu = props => <>
         Опубликовать статью
       </Button>
     </MobileShow>
-    <ol>
-      <li>Статьи редакции</li>
-      <li>Статьи одобренные редакцией</li>
-      <li>Песочница</li>
+    <ol className={styles.linksCategories}>
+      <li><a href="/posts?caste=4">Статьи редакции</a></li>
+      <li><a href="/posts?caste=3">Статьи одобренные редакцией</a></li>
+      <li><a href="/posts?caste=2">Бездна</a></li>
+      <li><br/></li>
+      <li><a href="/posts?caste=4">Брахманы</a></li>
+      <li><a href="/posts?caste=3">Кшатрии</a></li>
+      <li><a href="/posts?caste=2">Вайшьи</a></li>
+      <li><a href="/posts?caste=1">Шудры</a></li>
+      <li><a href="/posts?caste=0">Неприкасаемые</a></li>
     </ol>
     <div style={{ flexGrow: 1 }}></div>
-    <ol className={styles.links}>
+    <ol className={styles.linksAbout}>
       <li><a href={process.env.POST_ID_ABOUT}>О проекте</a></li>
       <li><a href={process.env.POST_ID_HELP}>Справки</a></li>
       <li><a href={process.env.POST_ID_RULES}>Правила</a></li>

@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 
 const onTextareaInput = ({ target }) => {
-  target.style.height = 0
   target.style.height = (target.scrollHeight) + 'px'
 }
 

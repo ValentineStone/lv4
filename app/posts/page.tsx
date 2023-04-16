@@ -25,8 +25,9 @@ export default async props => {
       FROM posts
       LEFT JOIN comments ON
         posts.id = comments.post
+      WHERE ($1 AND posts.caste = $1)
       GROUP BY posts.id
-    `)
+    `, [+props.searchParams.caste])
     .then(({ rows }) => rows)
     .catch(err => log([], err))
 

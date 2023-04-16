@@ -76,7 +76,6 @@ textarea::placeholder, input::placeholder {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
-    color: #D4D4D4;
     --page-background: #333333;
     --nav-background: #252526;
     --primary-background: #007ACC;
@@ -87,9 +86,11 @@ textarea::placeholder, input::placeholder {
     --highlight-background: #252526;
     --highlight-color: #D9D9D9;
     --comment-indent-line-color: #333333;
-    --text-inverted: white;
     --disabled-color: #8C8C8C;
     --comment-datetime: #8C8C8C;
+    --text-color: #D4D4D4;
+    color: var(--text-color);
+    --text-inverted: white;
     
   }
 }
@@ -107,9 +108,10 @@ textarea::placeholder, input::placeholder {
     --highlight-background: #D9D9D9;
     --highlight-color: #9E9E9E;
     --comment-indent-line-color: #9E9E9E;
-    --text-inverted: white;
     --disabled-color: #a6a6a7;
     --comment-datetime: #797979;
+    --text-color: black;
+    --text-inverted: white;
   }
 }
 

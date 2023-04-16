@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Scientific Articles</h1>
+    <a href="{% url 'submit_article' %}">Submit a new article</a>
+    <div class="article-list">
+        {% for article in articles %}
+            <div class="article-preview">
+                <h2><a href="{% url 'article' article_id=article.id %}">{{ article.title }}</a></h2>
+                <p>Rating: {{ article.rating }}</p>
+            </div>
+        {% empty %}
+            <p>No articles have been submitted yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

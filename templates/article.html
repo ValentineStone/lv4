@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <div class="article-content">{{ article.content|markdown }}</div>
+    <p>Rating: {{ article.rating }}</p>
+    <h2>Comments</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="content">Add a comment:</label>
+        <textarea id="content" name="content"></textarea>
+        <label for="rating_change">Rating change for the article:</label>
+        <select id="rating_change" name="rating_change">
+            <option value="1">+1</option>
+            <option value="-1">-1</option>
+        </select>
+        <input type="submit" value="Submit Comment">
+    </form>
+    <div class="comment-list">
+        {% for comment in comments %}
+            <div class="comment">
+                <div class="comment-content">{{ comment.content|markdown }}</div>
+                <p>Rating: {{ comment.rating }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="content">Reply:</label>
+                    <textarea id="content" name="content"></textarea>
+                    <label for="rating_change">Rating change for the comment:</label>
+                    <select id="rating_change" name="rating_change">
+                        <option value="1">+1</option>
+                        <option value="-1">-1</option>
+                    </select>
+                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                    <input type="submit" value="Submit Reply">
+                </form>
+            </div>
+        {% empty %}
+            <p>No comments have been posted yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,118 @@
+.Aside {
+  background: var(--page-background);
+  padding-left: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  position: fixed;
+  width: 23%;
+  bottom: 0;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+  overflow: auto;
+  z-index: 1;
+}
+
+.Aside li, .Aside summary {
+  margin-bottom: 0.9rem;
+}
+
+.Aside > ol {
+  font-weight: 700;
+}
+
+.Aside > ol > li > details {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.Aside ol {
+  list-style: none;
+}
+
+.Aside ol ol {
+  margin-left: 3rem;
+}
+
+.Aside > ol.linksAbout {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.Aside > ol.linksAbout a {
+  color: var(--primary-accent);
+}
+
+.Aside > ol.linksCategories a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+@media (max-width: 1800px) {
+  .Aside {
+    width: 20%;
+    padding-left: 4rem;
+  }
+}
+
+
+@media (max-width: 1600px) {
+  .Aside {
+    width: 20%;
+    padding-left: 3rem;
+  }
+}
+
+
+@media (max-width: 1400px) {
+  .Aside {
+    font-size: 1rem;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .Aside li, .Aside summary {
+    margin-bottom: 0.6rem;
+  }
+  .Aside ol ol {
+    margin-left: 2rem;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .Aside {
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .Aside ol ol {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .Aside {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    top: 0;
+    padding-top: 4rem;
+    display: none;
+  }
+}
+
+.MainMenuCheckbox  {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .MainMenuCheckbox:checked + .Aside {
+    display: none;
+  }
+  .MainMenuCheckbox:not(:checked) + .Aside {
+    display: flex;
+  }
+}

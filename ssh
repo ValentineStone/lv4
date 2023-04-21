@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$BASH_SOURCE")"
+
+ssh -t ubuntu@95.163.242.84 'cd lv4; bash -l'

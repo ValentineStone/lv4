@@ -1,0 +1,52 @@
+.Main {
+  max-width: 946px;
+  margin: 0 auto;
+  padding-top: 1.3rem;
+}
+
+
+.Main > * {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1800px) {
+  .Main {
+    max-width: 946px;
+  }
+}
+
+
+@media (max-width: 1600px) {
+  .Main {
+    max-width: 820px;
+  }
+}
+
+
+@media (max-width: 1400px) {
+  .Main {
+    max-width: 700px;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .Main {
+    max-width: 590px;
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+  .Main {
+    max-width: 500px;
+  }
+}
+
+
+@media (max-width: 850px) {
+  .Main {
+    padding: 0.5rem;
+  }
+}

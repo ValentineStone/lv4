@@ -1,0 +1,190 @@
+figure.post {
+  font-size: 1.5rem;
+  background: var(--element-background);
+  border-radius: 1rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
+  padding: 0.8em 0;
+}
+
+figure.post>figcaption,
+figure.post>section {
+  padding: 0 2.25rem;
+}
+
+figure.post>figcaption {
+  font-size: 2rem;
+}
+
+figure.post.preview>figcaption {
+  font-size: 1.5rem;
+}
+
+figure.post>img {
+  margin: 0 auto;
+  display: block;
+}
+
+figure.post>img,
+figure.post>section {
+  margin-top: 0.8em;
+}
+
+figure.post .write-comment {
+  background: var(--highlight-background);
+  border-radius: 1em;
+
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+
+  padding-left: 1.5em;
+  padding-right: 0.4em;
+  padding-top: 0.8em;
+  padding-bottom: 0.4em;
+}
+
+figure.post .write-comment textarea {
+  margin-right: 1.1em;
+  margin-bottom: 0.8em;
+}
+
+figure.post .write-comment button.post-comment {
+  font-size: 1.25rem;
+  background: var(--primary-accent);
+  box-shadow: none;
+}
+
+figure.post .comment>.write-comment {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+figure.post>.highlight {
+  background: none;
+}
+
+figure.post section.comments {
+  padding-left: 0;
+}
+
+figure.post section.comments .comment {
+  padding-left: 1.5em;
+  position: relative;
+}
+
+figure.post section.comments .comment> :not(:first-child) {
+  margin-top: 0.8em;
+}
+
+figure.post section.comments .comment .actions {
+  margin-bottom: 2em;
+}
+
+figure.post section.comments .comment .info {
+  overflow: hidden;
+}
+
+figure.post section.comments .comment .info>* {
+  margin-right: 1.5em;
+}
+
+figure.post section.comments .comment .datetime {
+  color: var(--comment-datetime);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+figure.post section.comments .comment .social {
+  flex-shrink: 0;
+}
+
+figure.post section.comments .comment .content {
+  font-size: 1.25rem;
+  min-width: 300px;
+}
+
+figure.post section.comments .comment .actions > * {
+  margin-right: 1.5em;
+  font-size: 1.25rem;
+}
+
+figure.post section.comments .comment .actions > a {
+  color: var(--highlight-color);
+}
+
+figure.post section.comments .comment .reply {
+  position: relative;
+  padding-left: 0.5em;
+}
+
+figure.post section.comments .comment .reply::before {
+  content: '';
+  width: 1.5em;
+  height: 1.6em;
+  top: -1em;
+  left: 0;
+  position: absolute;
+  border-bottom-left-radius: 1em;
+  border-bottom: 0.15em solid var(--comment-indent-line-color);
+  border-left: 0.15em solid var(--comment-indent-line-color);
+}
+
+figure.post section.comments .comment .reply:not(:last-child)::after {
+  content: '';
+  width: 1.5em;
+  top: 1em;
+  left: 0;
+  bottom: -1em;
+  position: absolute;
+  border-left: 0.15em solid var(--comment-indent-line-color);
+}
+
+figure.post section.tags {
+  color: var(--primary-accent);
+}
+
+@media (max-width: 1200px) {
+  figure.post {
+    font-size: 1.25rem;
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+  figure.post {
+    font-size: 1rem;
+  }
+}
+
+figure.post .readMore {
+  text-align: center;
+}
+
+figure.post.preview .content {
+  position: relative;
+  overflow-y: hidden;
+  max-height: 15em;
+  min-height: 2em;
+}
+figure.post.preview .content::after {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right:0;
+  left: 0;
+  height: 0.7em;
+  background: var(--element-background);;
+}
+figure.post.preview .content::before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  bottom: 0.7em;
+  right:0;
+  left: 0;
+  height: 100%;
+  max-height: 1.5em;
+  background: linear-gradient(to bottom, transparent, var(--element-background));
+}

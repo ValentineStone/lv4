@@ -1,0 +1,173 @@
+/* ================================ Imports ================================= */
+
+@import url(/github-markdown-dark.css) (prefers-color-scheme: dark);
+@import url(/github-markdown.css) (prefers-color-scheme: light);
+
+/* ============================= Generic reset ============================== */
+
+/* Box sizing rules */
+* { box-sizing: border-box }
+
+/* Remove default padding */
+ul, ol { padding: 0 }
+
+/* Remove default margin */
+body, h1, h2, h3, h4, p, ul, ol, li, figure,
+figcaption, blockquote, dl, dd { margin: 0 }
+
+/* Make body (and app) like in html 4 */
+body, html, #app { min-height: 100% }
+
+/* Make images easier to work with */
+img { max-width: 100% }
+
+/* Why does canvas even have focus?.. */
+canvas:focus { outline: none }
+
+/* Inherit fonts for inputs and buttons */
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: inherit;
+  min-width: 0;
+}
+
+/* Lighten up the default tabindex outline */
+*:focus { outline-color: rgba(0,0,0,0.2) }
+
+/* Remove animations and transitions for people who prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+/* ============================= Generic things ============================= */
+
+input, button, textarea, select {
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+}
+
+input.block {
+  display: block;
+  width:100%;
+}
+
+textarea::placeholder, input::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* ============================= Colors styles ============================== */
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+    --page-background: #333333;
+    --nav-background: #252526;
+    --primary-background: #007ACC;
+    --input-placeholder: #A6A6A6;
+    --secondary-background: #007ACC;
+    --primary-accent: #179FFF;
+    --element-background: #1E1E1E;
+    --highlight-background: #252526;
+    --highlight-color: #D9D9D9;
+    --comment-indent-line-color: #333333;
+    --disabled-color: #8C8C8C;
+    --comment-datetime: #8C8C8C;
+    --text-color: #D4D4D4;
+    color: var(--text-color);
+    --text-inverted: white;
+    
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+    --page-background: #f1f4ff;
+    --nav-background: #54a9f8;
+    --primary-background: #54a9f8;
+    --input-placeholder: #898989;
+    --secondary-background: #A8D4FC;
+    --primary-accent: #2f88f0;
+    --element-background: white;
+    --highlight-background: #D9D9D9;
+    --highlight-color: #9E9E9E;
+    --comment-indent-line-color: #9E9E9E;
+    --disabled-color: #a6a6a7;
+    --comment-datetime: #797979;
+    --text-color: black;
+    --text-inverted: white;
+  }
+}
+
+*[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ============================= Custom styles ============================== */
+
+html, body {
+  background: var(--page-background);
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+@media (min-width: 850px) {
+  .mobile-show { display: none }
+}
+
+@media (max-width: 850px) {
+  .mobile-hide { display: none }
+}
+
+.flex {
+  display: flex;
+}
+.flex > * {
+  align-items: center;
+}
+
+.flex.duo > :last-child {
+  margin-left: auto;
+}
+
+a.clear {
+  text-decoration: none;
+  color: inherit;
+}
+
+.DEV {
+  opacity: 0.05;
+}
+.DEV:hover {
+  opacity: 1;
+}
+
+.markdown-body img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 20em;
+}
+
+.highlight {
+  background: var(--highlight-background);
+  border-radius: 1em;
+  padding: 0.4em 0.5em;
+}

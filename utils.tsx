@@ -77,7 +77,7 @@ export const apiRedirect = req => (path, params, hash?) => {
     req.headers.get('origin') || req.url,
     params,
     hash
-  ))
+  ), 303)
 }
 
 

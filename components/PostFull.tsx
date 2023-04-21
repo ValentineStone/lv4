@@ -6,6 +6,7 @@ import styled from './Post.module.css'
 import { cx } from '@/utils'
 import { ReplyForm, Comment } from './Comments'
 import EditLinkMessage from './EditLinkMessage'
+import { Fragment } from 'react'
 
 export const PostFull = ({ id, title, content, views, comments = {}, commentsCount, up, dn, deleted, tags, mutagen, searchParams }) => (
   <figure className={styled.post}>
@@ -23,7 +24,7 @@ export const PostFull = ({ id, title, content, views, comments = {}, commentsCou
     </section>
     <section className={styled.tags}>
       {!!tags && tags.trim().split(' ').map((tag, i) =>
-        <a key={i} className="clear" href="#">#{tag}</a>
+        <Fragment key={tag}><a className="clear" href="#">#{tag}</a>{' '}</Fragment>
       )}
     </section>
     <section>

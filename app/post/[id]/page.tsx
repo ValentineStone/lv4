@@ -27,7 +27,7 @@ const getComments = async id => {
   const comments = await pg.query(
     'SELECT * FROM comments WHERE post = $1',
     [id]
-  ).then(({ rows }) => [ltreeNest(rows, 'comments'), rows.length]).catch(err => null)
+  ).then(({ rows }) => [ltreeNest(rows, 'comments'), rows.length]).catch(err => [[], 0])
   return comments
 }
 

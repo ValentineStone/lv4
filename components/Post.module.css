@@ -143,10 +143,6 @@ figure.post section.tags {
   color: var(--primary-accent);
 }
 
-figure.post section.tags a {
-  margin-right: 0.5em;
-}
-
 @media (max-width: 1200px) {
   figure.post {
     font-size: 1.25rem;
@@ -168,7 +164,8 @@ figure.post .readMore {
 figure.post.preview .content {
   position: relative;
   overflow-y: hidden;
-  max-height: 35em;
+  max-height: 15em;
+  min-height: 2em;
 }
 figure.post.preview .content::after {
   pointer-events: none;
@@ -177,18 +174,17 @@ figure.post.preview .content::after {
   bottom: 0;
   right:0;
   left: 0;
-  height: 100%;
-  max-height: 1.5em;
+  height: 0.7em;
   background: var(--element-background);;
 }
 figure.post.preview .content::before {
   pointer-events: none;
   content: '';
   position: absolute;
-  bottom: 1.5em;
+  bottom: 0.7em;
   right:0;
   left: 0;
   height: 100%;
-  max-height: 3.5em;
+  max-height: 1.5em;
   background: linear-gradient(to bottom, transparent, var(--element-background));
 }

@@ -1,6 +1,6 @@
 import { Button } from './Button'
 import Markdown from './Markdown'
-import { SocialButtons } from './Social/Social'
+import { SocialDisplay } from './Social/Social'
 
 import styled from './Post.module.css'
 import { cx } from '@/utils'
@@ -8,7 +8,7 @@ import { ReplyForm, Comment } from './Comments'
 import EditLinkMessage from './EditLinkMessage'
 import { Fragment } from 'react'
 
-export const PostFull = ({ id, title, content, views, comments = {}, commentsCount, up, dn, deleted, tags, mutagen, searchParams }) => (
+export const PostFull = ({ id, title, content, views, comments = {}, commentsCount, up, dn, deleted, tags, mutagen, searchParams, likes, dislikes, loadedAllComments, lastCommentId }) => (
   <figure className={styled.post}>
     <figcaption style={{ fontSize: 'larger' }}>
       {title}
@@ -28,13 +28,14 @@ export const PostFull = ({ id, title, content, views, comments = {}, commentsCou
       )}
     </section>
     <section>
-      <SocialButtons {...{ views, comments: commentsCount, likes: up, dislikes: dn }} />
+      <SocialDisplay {...{ views, comments: commentsCount, likes, dislikes }} />
     </section>
     <ReplyForm post={id} reply />
     <section className={styled.comments}>
       {Object.values<any>(comments).map((comment, i) =>
         <Comment key={comment.id} {...comment} searchParams={searchParams} />
       )}
+      {!loadedAllComments && <a className={styled.loadMore} href={"?limit=" + (+(searchParams.limit || 0) + 100) + '#' + lastCommentId}>Загрузить ещё</a>}
     </section>
   </figure>
 )

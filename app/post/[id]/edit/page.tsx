@@ -2,6 +2,10 @@ import { notFound } from 'next/navigation'
 import { pg } from '@/pg'
 import EditPost from '@/components/EditPost'
 
+import { Nav } from '@/components/Nav'
+import { MainMenu } from '@/components/MainMenu'
+import { Main } from '@/components/Main'
+
 export const generateMetadata = async ({ params }) => {
   if (params.id === 'new')
     return { title: 'Новый пост' }
@@ -28,7 +32,11 @@ export default async ({ params, searchParams }) => {
   else if (params.id !== 'new')
     post = await getPost(params.id) || {}
   return <>
-    {searchParams.error && <h1 style={{ color: 'red' }}>{searchParams.error}</h1>}
-    <EditPost id={params.id} post={post} mutagen={mutagen} />
+    <Nav searchParams={searchParams} searchUrl="/posts" />
+    <MainMenu />
+    <Main>
+      {searchParams.error && <h1 style={{ color: 'red' }}>{searchParams.error}</h1>}
+      <EditPost id={params.id} post={post} mutagen={mutagen} />
+    </Main>
   </>
 }

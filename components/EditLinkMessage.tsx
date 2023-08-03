@@ -1,10 +1,8 @@
 import { makeUrl } from '@/utils'
-import { headers } from 'next/headers'
 
 export default function EditLinkMessage({ post, comment = undefined, mutagen }) {
   const editUrl = String(makeUrl(
     `/post/${post}${comment ? '' : '/edit'}`,
-    'http://' + headers().get('host'),
     { editComment: comment, mutagen },
     comment
   ))

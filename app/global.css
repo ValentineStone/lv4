@@ -99,7 +99,7 @@ textarea::placeholder, input::placeholder {
   html {
     color-scheme: light;
     --page-background: #f1f4ff;
-    --nav-background: #54a9f8;
+    --nav-background: #007df1a9/*#0077e791*//*#54a9f8*/;
     --primary-background: #54a9f8;
     --input-placeholder: #898989;
     --secondary-background: #A8D4FC;
@@ -170,4 +170,33 @@ a.clear {
   background: var(--highlight-background);
   border-radius: 1em;
   padding: 0.4em 0.5em;
+}
+
+.emSvg {
+  height:1em;
+}
+
+.svgBtn.active,
+label > input[type=radio]:checked + .svgBtn {
+  color: var(--primary-accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  .svgBtn.inactive,
+  label > input[type=radio]:not(:checked) + .svgBtn {
+    filter: brightness(100);
+  }
+}
+@media (prefers-color-scheme: light) {
+  .svgBtn.inactive.gray,
+  label > input[type=radio]:not(:checked) + .svgBtn.gray {
+    filter: grayscale() brightness(1.2);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .svgBtn.inactive,
+  label > input[type=radio]:not(:checked) + .svgBtn {
+    filter: brightness(0);
+  }
 }

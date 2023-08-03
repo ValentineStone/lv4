@@ -1,11 +1,11 @@
 import { Button } from './Button'
 import Markdown from './Markdown'
-import { SocialButtons } from './Social/Social'
+import { SocialDisplay } from './Social/Social'
 
 import styled from './Post.module.css'
 import { cx } from '@/utils'
 
-export const PostPreview = ({ id, title, content, views, comments, up, dn, ...rest }) => (
+export const PostPreview = ({ id, title, content, views, comments, up, dn, likes, dislikes, ...rest }) => (
   <figure className={cx(styled.post, styled.preview)} id={id}>
     <figcaption style={{ fontSize: 'larger' }}>
       {title}
@@ -17,7 +17,7 @@ export const PostPreview = ({ id, title, content, views, comments, up, dn, ...re
       <Button href={'/post/' + id}>Читать далее...</Button>
     </div>
     <section>
-      <SocialButtons {...{ views, comments, likes: up, dislikes: dn }} />
+      <SocialDisplay {...{ views, comments, likes, dislikes }} />
     </section>
   </figure>
 )

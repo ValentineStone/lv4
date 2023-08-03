@@ -1,6 +1,6 @@
 import { cx, jsonParse, log, toLocaleStringRu } from '@/utils'
 import Markdown from './Markdown'
-import { CommentsButton, LikesButtons, SocialButtons } from './Social/Social'
+import { CommentsDisplay, LikeButton, LikesAndDislikesDisplay, SocialDisplay } from './Social/Social'
 import { Status } from './Status'
 import Textarea from './Textarea'
 import styles from './Post.module.css'
@@ -8,7 +8,7 @@ import { Button } from './Button'
 import Inspect from './Inspect'
 import EditLinkMessage from './EditLinkMessage'
 
-export const ReplyForm = ({ id = null, post = null, reply = false, content = '', mutagen = '' }) =>
+export const ReplyForm = ({ id = null, post = null, reply = false, content = '', mutagen = '', attitude='x' }) =>
   <section className={styles['write-comment']}>
     <form method="post" action="/api/comment">
       <Textarea name="content" placeholder={mutagen ? 'Редактировать...' : 'Написать ответ...'} defaultValue={content} />
@@ -18,8 +18,9 @@ export const ReplyForm = ({ id = null, post = null, reply = false, content = '',
       {!!mutagen && <input name="mutagen" hidden defaultValue={mutagen} />}
       <div className="flex duo">
         <div>
-          <img src="/attach-file.svg" />{' '}
-          <img src="/attach-image.svg" />
+          <img src="/attach-file.svg" className='emSvg' />{' '}
+          <img src="/attach-image.svg" className='emSvg' />{' '}
+          <LikeButton gray name="attitude" likeValue="+" dislikeValue="-" defaultValue={attitude} />
         </div>
         <div>
           <Button className={styles['post-comment']}>
@@ -30,7 +31,7 @@ export const ReplyForm = ({ id = null, post = null, reply = false, content = '',
     </form>
   </section>
 
-export const Comment = ({ id, post, content, comments = {}, up, dn, time, deleted, searchParams, ...rest }) => {
+export const Comment = ({ id, post, content, comments = {}, up, dn, likes, dislikes, time, deleted, searchParams, attitude, ...rest }) => {
   const comments_array = Object.values<any>(comments)
 
   return (
@@ -47,11 +48,11 @@ export const Comment = ({ id, post, content, comments = {}, up, dn, time, delete
             <a className="clear DEV" href={`/ADMIN/DELETE_COMMENT/${post}/${id}`}>🗑️</a>
             <a className="clear DEV" href={`?mutagen=${process.env.MUTAGEN_OVERRIDE}&editComment=${id}#${id}`}>✏️</a>
           </>}
-          <LikesButtons likes={up} dislikes={dn} />
+          <LikesAndDislikesDisplay likes={likes} dislikes={dislikes} />
         </div>
       </div>
       {(id === searchParams.editComment)
-        ? <ReplyForm post={post} id={id} content={content} mutagen={searchParams.mutagen} />
+        ? <ReplyForm post={post} id={id} content={content} mutagen={searchParams.mutagen} attitude={attitude} />
         : (
           <div className={styles.content}>
             {deleted
@@ -62,7 +63,7 @@ export const Comment = ({ id, post, content, comments = {}, up, dn, time, delete
         )
       }
       {id === searchParams.replyTo &&
-        <ReplyForm post={post} id={searchParams.replyTo} reply />
+        <ReplyForm post={post} id={searchParams.replyTo} attitude={attitude} reply />
       }
       {id === searchParams.mutagenForComment &&
         <EditLinkMessage post={post} comment={id} mutagen={searchParams.mutagen} />

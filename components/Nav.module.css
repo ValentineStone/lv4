@@ -6,6 +6,8 @@
   align-items: center;
   font-size: 1.5rem;
   z-index: 2;
+  box-shadow: 0 0 10px 2px #00000044;
+  backdrop-filter: blur(20px);
 }
 
 .nav > * {
@@ -21,11 +23,25 @@
   margin: 0 0.5rem;
 }
 
-.nav .search {
+.nav > form {
   border-radius: 1000rem;
   background: var(--element-background);
-  padding: 0.2em 1em;
+  padding: 0.2em 0.4em 0.2em  1em ;
+  display: flex;
+  align-items: center;
+}
+
+.nav > form > * {
+  margin: 0;
+}
+
+.nav > form > .search {
   outline: none;
+  flex: 1;
+}
+.nav > form > .searchClear {
+  display: flex;
+  align-items: center;
 }
 
 .nav .button {

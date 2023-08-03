@@ -55,7 +55,11 @@ export const ltreeNest = (arr, key) => {
 
 export const sleep = async ms => await new Promise(r => setTimeout(r, ms))
 
-export const makeUrl = (path, base, params, hash?) => {
+import { headers } from 'next/headers'
+
+export const makeUrl = (path, params, hash?, base?) => {
+  const protocol = process.env.HTTPS ? 'https://' : 'http://'
+  if (!base) base = protocol + headers().get('host')
   const url = new URL(path, base)
   for (const key in params)
     if (params[key] === undefined)
@@ -71,12 +75,29 @@ export const makeUrl = (path, base, params, hash?) => {
   return url
 }
 
+export const makeQuery = (...paramsObjs) => {
+  const params = Object.assign({}, ...paramsObjs)
+  const paramsStr = []
+  const pushURIComponent = (key, val) => paramsStr.push(
+    encodeURIComponent(key) + '=' + encodeURIComponent(String(val)))
+  for (const key in params)
+    if (params[key] === undefined)
+      continue
+    else if (params[key] instanceof Error)
+      pushURIComponent(key, params[key])
+    else if (typeof params[key] === 'object' && params[key])
+      pushURIComponent(key, JSON.stringify(params[key]))
+    else
+      pushURIComponent(key, params[key])
+  return '?' + paramsStr.join('&')
+}
+
 export const apiRedirect = req => (path, params, hash?) => {
   return NextResponse.redirect(makeUrl(
     path,
-    req.headers.get('origin') || req.url,
     params,
-    hash
+    hash,
+    req.headers.get('origin') || req.url,
   ), 303)
 }
 

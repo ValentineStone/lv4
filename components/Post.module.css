@@ -62,6 +62,12 @@ figure.post>.highlight {
   background: none;
 }
 
+.loadMore {
+  display: block;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
 figure.post section.comments {
   padding-left: 0;
 }

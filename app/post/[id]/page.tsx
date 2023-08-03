@@ -7,6 +7,12 @@ import { headers } from 'next/headers'
 import Inspect from '@/components/Inspect'
 import { cache } from 'react'
 
+import { Nav } from '@/components/Nav'
+import { MainMenu } from '@/components/MainMenu'
+import { Main } from '@/components/Main'
+
+const commentsPerPage = 50
+
 export const generateMetadata = async ({ params }) => {
   const post = await getPost(params.id)
   if (!post)
@@ -23,29 +29,56 @@ const getPost = cache(async id => {
   return post
 })
 
-const getComments = async id => {
+const calcAttitudes = (comment) => {
+  comment.likes = 0
+  comment.dislikes = 0
+  for (const id in comment.comments) {
+    if (comment.comments[id].attitude === '+')
+      comment.likes++
+    else if (comment.comments[id].attitude === '-')
+      comment.dislikes++
+    if (comment.comments[id].comments)
+      calcAttitudes(comment.comments[id])
+  }
+}
+
+const getComments = async (id, limit) => {
   const comments = await pg.query(
-    'SELECT * FROM comments WHERE post = $1',
-    [id]
-  ).then(({ rows }) => [ltreeNest(rows, 'comments'), rows.length]).catch(err => [[], 0])
+    `SELECT count(post) over(), * FROM comments WHERE post = $1 LIMIT $2`,
+    [id, limit]
+  ).then(({ rows, ...rest }) => {
+    const postComments = {
+      comments: ltreeNest(rows, 'comments'),
+      loadedAllComments: rows.length === rows[0].count,
+      lastCommentId: rows[rows.length - 1].id
+    }
+    calcAttitudes(postComments)
+    return {
+      ...postComments,
+      commentsCount: rows.length,
+    }
+  }).catch(err => ({ comments: [], commentsCount: 0, likes: 0, dislikes: 0, loadedAllComments: true }))
   return comments
 }
 
 export default async ({ params, searchParams }) => {
-  const { mutagen } = searchParams
+  const { mutagen, limit = 100 } = searchParams
   const post = await getPost(params.id)
-  const [comments, commentsCount] = await getComments(params.id)
+  const comments = await getComments(params.id, limit)
   if (!post) return notFound()
   const h = headers()
 
   return <>
-    {searchParams.error && <h1 style={{ color: 'red' }}>{searchParams.error}</h1>}
-    <PostFull
-      {...post}
-      comments={comments}
-      commentsCount={commentsCount}
-      mutagen={mutagen}
-      searchParams={searchParams}
-    />
+    <Nav searchParams={searchParams} searchUrl="/posts" />
+    <MainMenu />
+    <Main>
+      {searchParams.error && <h1 style={{ color: 'red' }}>{searchParams.error}</h1>}
+      <PostFull
+        {...post}
+        {...comments}
+        mutagen={mutagen}
+        searchParams={searchParams}
+      />
+    </Main>
   </>
 }

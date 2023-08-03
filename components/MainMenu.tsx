@@ -12,15 +12,17 @@ export const MainMenu = props => <>
       </Button>
     </MobileShow>
     <ol className={styles.linksCategories}>
-      <li><a href="/posts?caste=4">Статьи редакции</a></li>
-      <li><a href="/posts?caste=3">Статьи одобренные редакцией</a></li>
-      <li><a href="/posts?caste=2">Бездна</a></li>
+      <li><a href="/posts/caste/4">Статьи редакции</a></li>
+      <li><a href="/posts/caste/3">Статьи одобренные редакцией</a></li>
+      <li><a href="/posts/caste/1,2">Бездна</a></li>
       <li><br/></li>
-      <li><a href="/posts?caste=4">Брахманы</a></li>
-      <li><a href="/posts?caste=3">Кшатрии</a></li>
-      <li><a href="/posts?caste=2">Вайшьи</a></li>
-      <li><a href="/posts?caste=1">Шудры</a></li>
-      <li><a href="/posts?caste=0">Неприкасаемые</a></li>
+      <li><a href="/posts/caste/4">Брахманы</a></li>
+      <li><a href="/posts/caste/3">Кшатрии</a></li>
+      <li><a href="/posts/caste/2">Вайшьи</a></li>
+      <li><a href="/posts/caste/1">Шудры</a></li>
+      <li><a href="/posts/caste/0">Неприкасаемые</a></li>
+      <li><br/></li>
+      <li><a href="/posts/caste/0,1,2,3,4">Все</a></li>
     </ol>
     <div style={{ flexGrow: 1 }}></div>
     <ol className={styles.linksAbout}>

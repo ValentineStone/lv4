@@ -1,8 +1,5 @@
 
 import './global.css'
-import { Nav } from '@/components/Nav'
-import { MainMenu } from '@/components/MainMenu'
-import { Main } from '@/components/Main'
 import { StrictMode } from 'react'
 
 export default ({ children }) => (
@@ -17,11 +14,7 @@ export default ({ children }) => (
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <Nav />
-        <MainMenu />
-        <Main>
-          {children}
-        </Main>
+        {children}
       </body>
     </html>
   </StrictMode>

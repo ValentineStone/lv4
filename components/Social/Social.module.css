@@ -5,9 +5,6 @@
   box-shadow: none;
   cursor: pointer;
 }
-.social.active {
-  color: var(--primary-accent);
-}
 
 img.likeSvg {
   width:1.24em;
@@ -32,16 +29,4 @@ img.repostSvg {
 img.copySvg {
   width: 1em;
   margin: 0.4em;
-}
-
-@media (prefers-color-scheme: dark) {
-  .social:not(.active) {
-    filter: brightness(100);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .social:not(.active) {
-    filter: brightness(0);
-  }
 }

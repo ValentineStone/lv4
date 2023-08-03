@@ -8,36 +8,36 @@ import dislikeSvg from './dislike.svg'
 
 import styles from './Social.module.css'
 
-export const ViewsButton = ({ count = 0 }) =>
-  <button className={cx(styles.social, { [styles.active]: count })}>
+export const ViewsDisplay = ({ count = 0 }) =>
+  <button className={cx(styles.social, 'svgBtn', count ? 'active' : 'inactive')}>
     <img className={styles.viewsSvg} src={viewsSvg.src} />{' '}
     <span>{count}</span>
   </button>
 
-export const CommentsButton = ({ count = 0 }) =>
-  <button className={cx(styles.social, { [styles.active]: count })}>
+export const CommentsDisplay = ({ count = 0 }) =>
+  <button className={cx(styles.social, 'svgBtn', count ? 'active' : 'inactive')}>
     <img className={styles.commentSvg} src={commentSvg.src} />{' '}
     <span>{count}</span>
   </button>
 
-export const RepostButton = ({ active = false }) =>
-  <button className={cx(styles.social, { [styles.active]: active })}>
+export const RepostDisplay = ({ active = false }) =>
+  <button className={cx(styles.social, 'svgBtn', active ? 'active' : 'inactive')}>
     <img className={styles.repostSvg} src={repostSvg.src} />{' '}
   </button>
 
-export const LikesButton = ({ count = 0 }) =>
-  <button className={cx(styles.social, { [styles.active]: count })}>
+export const LikesDisplay = ({ count = 0 }) =>
+  <button className={cx(styles.social, 'svgBtn', count ? 'active' : 'inactive')}>
     <img className={styles.likeSvg} src={likeSvg.src} />{' '}
     <span>{count}</span>
   </button>
 
-export const DislikesButton = ({ count = 0 }) =>
-  <button className={cx(styles.social, { [styles.active]: count })}>
+export const DislikesDisplay = ({ count = 0 }) =>
+  <button className={cx(styles.social, 'svgBtn', count ? 'active' : 'inactive')}>
     <img className={styles.dislikeSvg} src={dislikeSvg.src} />{' '}
     <span>{count}</span>
   </button>
 
-export const SocialButtons = ({
+export const SocialDisplay = ({
   views,
   comments,
   likes,
@@ -45,32 +45,50 @@ export const SocialButtons = ({
 }) => (
   <div className="flex duo">
     <div>
-      <ViewsButton count={views} />
-      <CommentsButton count={comments} />
-      <RepostButton />
+      <ViewsDisplay count={views} />
+      <CommentsDisplay count={comments} />
+      <RepostDisplay />
     </div>
     <div>
-      <LikesButton count={likes} />
-      <DislikesButton count={dislikes} />
+      <LikesDisplay count={likes} />
+      <DislikesDisplay count={dislikes} />
     </div>
   </div>
 )
 
 
-export const LikesButtons = ({
+export const LikesAndDislikesDisplay = ({
   likes,
   dislikes,
 }) => (
   <div className="flex">
-    <LikesButton count={likes} />
-    <DislikesButton count={dislikes} />
+    <LikesDisplay count={likes} />
+    <DislikesDisplay count={dislikes} />
   </div>
 )
 
-export const LikeStatus = ({ liked }) =>
+export const LikeStatus = ({ liked }) => (
   <div className="social">
     {liked
-      ? <img className={styles.likeSvg} src="/static/like.svg" />
-      : <img className={styles.dislikeSvg} src="/static/dislike.svg" />
+      ? <img className={styles.likeSvg} src={likeSvg.src} />
+      : <img className={styles.dislikeSvg} src={dislikeSvg.src} />
     }
   </div>
+)
+
+export const LikeButton = ({ gray = false, name, likeValue = "like", dislikeValue = "dislike", defaultValue = null }) => {
+  const rand = String(Math.random()).slice(2)
+  const idOn = 'radioOn' + rand
+  const idOff = 'radioOff' + rand
+  return <>
+    <label>
+      <input type="radio" name={name} value={likeValue} defaultChecked={likeValue === defaultValue} />
+      <img className={cx('emSvg svgBtn', { gray })} src={likeSvg.src} />
+    </label>
+    {' '}
+    <label>
+      <input type="radio" name={name} value={dislikeValue} defaultChecked={dislikeValue === defaultValue} />
+      <img className={cx('emSvg svgBtn', { gray })} src={dislikeSvg.src} />
+    </label >
+  </>
+}

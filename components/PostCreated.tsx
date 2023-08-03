@@ -1,6 +1,6 @@
 import { Button } from './Button'
 import Markdown from './Markdown'
-import { SocialButtons } from './Social/Social'
+import { SocialDisplay } from './Social/Social'
 
 import styled from './Post.module.css'
 import { cx } from '@/utils'

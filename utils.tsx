@@ -92,7 +92,7 @@ export const makeQuery = (...paramsObjs) => {
   return '?' + paramsStr.join('&')
 }
 
-export const apiRedirect = req => (path, params, hash?) => {
+export const apiRedirect = req => (path, params={}, hash?) => {
   return NextResponse.redirect(makeUrl(
     path,
     params,

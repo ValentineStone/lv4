@@ -2,6 +2,7 @@ import styles from './MainMenu.module.css'
 import { Button } from '@/components/Button'
 import { cx } from '@/utils'
 import { MobileShow } from './Hide'
+import packageJson from '../package.json'
 
 export const MainMenu = props => <>
   <input type="checkbox" id="mainmenu-checkbox" defaultChecked className={styles.MainMenuCheckbox} />
@@ -15,13 +16,13 @@ export const MainMenu = props => <>
       <li><a href="/posts/caste/4">Статьи редакции</a></li>
       <li><a href="/posts/caste/3">Статьи одобренные редакцией</a></li>
       <li><a href="/posts/caste/1,2">Бездна</a></li>
-      <li><br/></li>
+      <li><br /></li>
       <li><a href="/posts/caste/4">Брахманы</a></li>
       <li><a href="/posts/caste/3">Кшатрии</a></li>
       <li><a href="/posts/caste/2">Вайшьи</a></li>
       <li><a href="/posts/caste/1">Шудры</a></li>
       <li><a href="/posts/caste/0">Неприкасаемые</a></li>
-      <li><br/></li>
+      <li><br /></li>
       <li><a href="/posts/caste/0,1,2,3,4">Все</a></li>
     </ol>
     <div style={{ flexGrow: 1 }}></div>
@@ -34,6 +35,9 @@ export const MainMenu = props => <>
       <li className="mobile-show">
         Язык
         <span className="fi fi-ru fis"></span>
+      </li>
+      <li>
+        <a href="https://github.com/ValentineStone/lv4/tree/next" style={{ color: 'var(--page-background-text)' }} >{packageJson.name} версия: {packageJson.version}</a>
       </li>
     </ol>
   </aside>

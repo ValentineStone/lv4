@@ -18,7 +18,9 @@ export const PostFull = ({ id, title, content, views, comments = {}, commentsCou
     }
     <section className={styled.content}>
       {!deleted && <>
-        <a className="clear DEV" style={{ float: 'right' }} href={`/api/post/promote?post=${id}&mutagen=${mutagen || process.env.MUTAGEN_OVERRIDE}`}>{caste}🆙</a>
+        {caste < 4 &&
+          <a className="clear DEV" style={{ float: 'right' }} href={`/api/post/promote?post=${id}&mutagen=${mutagen || process.env.MUTAGEN_OVERRIDE}`}>{caste}🆙</a>
+        }
         <a className="clear DEV" style={{ float: 'right' }} href={`/post/${id}/edit?mutagen=${mutagen || process.env.MUTAGEN_OVERRIDE}`}>✏️</a>
       </>}
       <Markdown raw={content} />

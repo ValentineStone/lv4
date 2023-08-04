@@ -8,7 +8,6 @@ const promotePost = async ({ post, mutagen }) => await pg.query(
 ).then(({ rowCount }) => { if (!rowCount) throw new Error('Nothing updated') })
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  console.log(req)
   const redirect = apiRedirect(req)
   const post = req.nextUrl.searchParams.get('post')
   const mutagen = req.nextUrl.searchParams.get('mutagen')

@@ -97,7 +97,7 @@ export const apiRedirect = req => (path, params={}, hash?) => {
     path,
     params,
     hash,
-    req.headers.get('origin') || req.url,
+    process.env.ORIGIN || req.headers.get('origin') || req.url,
   ), 303)
 }
 
